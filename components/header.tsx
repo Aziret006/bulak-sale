@@ -122,8 +122,6 @@ export function Header() {
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
       <div
         className={`fixed inset-0 bg-white z-115 pt-24 pb-112 px-8 lg:hidden flex flex-col justify-between overflow-y-auto transition-all duration-300 ${
           isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
@@ -134,7 +132,7 @@ export function Header() {
             <button
               key={link.href}
               onClick={(e) => scrollToSection(link.href, e)}
-              className="text-3xl font-bold text-left text-gray-900 hover:text-[#3DB7F4] transition-colors"
+              className="text-lg font-bold text-left text-gray-900 hover:text-[#3DB7F4] transition-colors"
             >
               {link.label}
             </button>
