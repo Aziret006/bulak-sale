@@ -11,8 +11,8 @@ export function Footer() {
     <footer className="absolute bottom- left-0 right-0 z-50 bg-[#0a3e6b] w-full text-white overflow-hidden rounded-t-xl">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-[#3DB7F4] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#3DB7F4] rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#2f7cff] rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#2f7cff] rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8 py-16 md:py-20">
@@ -35,7 +35,7 @@ export function Footer() {
                 href="https://instagram.com/bulak_alina"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-[#3DB7F4] flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-[#2f7cff] flex items-center justify-center transition-all duration-300 hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
@@ -51,7 +51,7 @@ export function Footer() {
               </a>
               <a
                 href="mailto:bulaksale@gmail.com"
-                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-[#3DB7F4] flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-[#2f7cff] flex items-center justify-center transition-all duration-300 hover:scale-110"
                 aria-label="Email"
               >
                 <Mail className="w-5 h-5" />
@@ -87,13 +87,13 @@ export function Footer() {
             <h4 className="font-semibold mb-6">Контакты</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#3DB7F4] shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[#2f7cff] shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm">
                   Бишкек, Кыргызстан
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-[#3DB7F4] shrink-0 mt-0.5" />
+                <Phone className="w-5 h-5 text-[#2f7cff] shrink-0 mt-0.5" />
                 <div className="text-sm">
                   <a
                     href="tel:+996222233002"
@@ -110,7 +110,7 @@ export function Footer() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-[#3DB7F4] shrink-0 mt-0.5" />
+                <Mail className="w-5 h-5 text-[#2f7cff] shrink-0 mt-0.5" />
                 <a
                   href="mailto:bulaksale@gmail.com"
                   className="text-white/70 hover:text-white transition-colors text-sm"

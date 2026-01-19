@@ -7,7 +7,8 @@ import {
   Phone, 
   Mail, 
   Send,
-  MessageSquare
+  MessageSquare,
+  
 } from 'lucide-react';
 
 export const FloatingCTA: React.FC = () => {
@@ -39,7 +40,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'whatsapp',
       label: 'WhatsApp',
       icon: <MessageSquare className="w-5 h-5" />,
-      href: 'https://wa.me/996222233002',
+      href: 'https://wa.me/996708772844',
       color: 'bg-[#25D366]',
       hover: 'hover:bg-[#128C7E]',
       textColor: 'text-white'
@@ -48,7 +49,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'telegram',
       label: 'Telegram',
       icon: <Send className="w-5 h-5" />,
-      href: 'https://t.me/+996222233002',
+      href: 'https://t.me/alina_bulak',
       color: 'bg-[#0088cc]',
       hover: 'hover:bg-[#0077b5]',
       textColor: 'text-white'
@@ -57,7 +58,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'phone',
       label: 'Позвонить',
       icon: <Phone className="w-5 h-5" />,
-      href: 'tel:+996222233002',
+      href: 'tel:+996708772844',
       color: 'bg-slate-800',
       hover: 'hover:bg-slate-900',
       textColor: 'text-white'
@@ -66,7 +67,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'email',
       label: 'Email',
       icon: <Mail className="w-5 h-5" />,
-      href: 'mailto:contact@example.com',
+      href: 'mailto:alina.bulak@outlook.com',
       color: 'bg-white',
       hover: 'hover:bg-slate-50',
       textColor: 'text-slate-900',

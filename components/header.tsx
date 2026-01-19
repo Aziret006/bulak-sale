@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const navLinks = [
+  { href: "#portfolio", label: "О нас" },
   { href: "#services", label: "Услуги" },
   { href: "#pricing", label: "Цены" },
-  { href: "#portfolio", label: "Портфолио" },
   { href: "#contact", label: "Контакты" },
 ];
 
@@ -86,13 +87,13 @@ export function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <button
-              className="bg-[#3DB7F4] hover:bg-[#2563eb] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#3DB7F4]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
-              onClick={(e) => scrollToSection("#contact", e)}
+            <Link
+              className="bg-[#2f7cff] hover:bg-[#2563eb] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#2f7cff]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
+              href="https://wa.me/996708772844" target="_blank" rel="noreferrer"
             >
           Записаться на консультацию
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
 
           {/* Burger Menu Button */}
@@ -140,13 +141,14 @@ export function Header() {
         </nav>
 
         <div className="mt-12 space-y-8 transition-all duration-500 delay-100">
-          <button
-            className="w-full bg-[#3DB7F4] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#3DB7F4]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
-            onClick={(e) => scrollToSection("#contact", e)}
+          <Link
+            className="w-full bg-[#2f7cff] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#2f7cff]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
+            href="https://wa.me/996708772844" target="_blank" rel="noreferrer"
+            // onClick={(e) => scrollToSection("#contact", e)}
           >
             Записаться на консультацию
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </Link>
           
           <div className="flex justify-between items-center text-gray-500 text-sm">
             <span>+996 222 233 002</span>

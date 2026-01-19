@@ -6,6 +6,7 @@ import { Process } from "@/components/process";
 import { Quiz } from "@/components/quiz";
 import { Footer } from "@/components/footer";
 import { FloatingCTA } from "@/components/floating-cta";
+import { Service } from "@/components/service";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Header />
       <Hero />
       <Services />
+      <Service />
       <WhyUs />
       <Process />
       <Quiz />

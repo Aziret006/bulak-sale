@@ -16,7 +16,7 @@ const services = [
     id: "small",
     icon: Sparkles,
     title: "Малый бизнес",
-    subtitle: "Быстрый старт и порядок",
+    subtitle: "Разработка чат-бота ",
     description: "Для тех, кто хочет выйти из хаоса тетрадей и WhatsApp.",
     price: '300 USD',
     benefits: [
@@ -29,9 +29,9 @@ const services = [
     id: "medium",
     icon: TrendingUp,
     title: "Средний бизнес",
-    subtitle: "Системные продажи и контроль",
+    subtitle: "Настройка базового CRM",
     description: "Для тех, у кого уже есть команда, но нет прозрачности.",
-    price: '500 USD',
+    price: '700 USD',
     popular: true,
     benefits: [
       "Видите реальную работу каждого менеджера",
@@ -43,9 +43,9 @@ const services = [
     id: "enterprise",
     icon: Building2,
     title: "Крупный бизнес",
-    subtitle: "Цифровая экосистема и масштаб",
+    subtitle: "Комплекс CRM интеграций ",
     description: "Для корпораций с высокими требованиями к надежности.",
-    price: '800 USD',
+    price: '1000 USD',
     benefits: [
       "Синхронизация CRM с 1С, складом и логистикой",
       "Архитектура для систем на 12 000+ пользователей",
@@ -130,7 +130,7 @@ export function Services() {
                 <h3 className="text-xl lg:text-2xl font-bold text-[#3d4f5f] mb-2">
                   {service.title}
                 </h3>
-                <p className="text-sm text-[#3DB7F4] font-medium mb-3">
+                <p className="text-lg text-[#3DB7F4] font-medium mb-3">
                   {service.subtitle}
                 </p>
                 <p className="text-[#5a6a7a] mb-6">{service.description}</p>
@@ -148,12 +148,12 @@ export function Services() {
                 <h3 className="text-xl lg:text-2xl font-bold text-center text-[#5a6a7a] mb-8">{service.price}</h3>
 
                 {/* CTA */}
-                <Link href="#contact">
+                <Link href="https://wa.me/996708772844" target="_blank" rel="noreferrer">
                   <Button
                     variant="outline"
                     className="w-full group/btn border-[#e8eef1] hover:bg-[#3DB7F4] hover:text-white hover:border-[#3DB7F4] transition-all duration-300 bg-transparent text-[#3d4f5f]"
                   >
-                    Хочу такую систему
+                    Узнать подробнее
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
