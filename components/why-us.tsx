@@ -92,18 +92,18 @@ export function WhyUs() {
     >
       {/* Background Pattern */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,#2f7cff_0%,transparent_50%)] opacity-5" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,#3DB7F4_0%,transparent_50%)] opacity-5" />
         <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,#3d4f5f_0%,transparent_50%)] opacity-5" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <span className="inline-block text-[#2f7cff] font-medium text-sm uppercase tracking-wider mb-4">
+          <span className="inline-block text-[#3DB7F4] font-medium text-sm uppercase tracking-wider mb-4">
             Почему мы
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3d4f5f] mb-6 text-balance">
-            Ваш проект в <span className="text-[#2f7cff]">надежных руках</span>
+            Ваш проект в <span className="text-[#3DB7F4]">надежных руках</span>
           </h2>
           <p className="text-lg text-[#5a6a7a] leading-relaxed">
             Мы не просто настраиваем поля и кнопки. Наша команда обладает
@@ -117,7 +117,7 @@ export function WhyUs() {
           {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className={`bg-white border border-[#e8eef1] rounded-2xl p-6 text-center transition-all duration-700 hover:shadow-lg hover:border-[#2f7cff]/30 ${
+              className={`bg-white border border-[#e8eef1] rounded-2xl p-6 text-center transition-all duration-700 hover:shadow-lg hover:border-[#3DB7F4]/30 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -128,7 +128,7 @@ export function WhyUs() {
                 <span className="text-4xl md:text-5xl font-bold text-[#3d4f5f]">
                   {countersStarted ? stat.value : "0"}
                 </span>
-                <span className="text-2xl md:text-3xl font-bold text-[#2f7cff]">
+                <span className="text-2xl md:text-3xl font-bold text-[#3DB7F4]">
                   {stat.suffix}
                 </span>
               </div>
@@ -142,7 +142,7 @@ export function WhyUs() {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={`group relative bg-white border border-[#e8eef1] rounded-2xl p-6 transition-all duration-700 hover:shadow-xl hover:border-[#2f7cff]/30 ${
+              className={`group relative bg-white border border-[#e8eef1] rounded-2xl p-6 transition-all duration-700 hover:shadow-xl hover:border-[#3DB7F4]/30 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
@@ -150,11 +150,11 @@ export function WhyUs() {
               style={{ transitionDelay: `${index * 100 + 400}ms` }}
             >
               {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#2f7cff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#3DB7F4]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-[#eef7fa] flex items-center justify-center mb-4 group-hover:bg-[#2f7cff]/20 transition-colors duration-300">
-                  <feature.icon className="w-6 h-6 text-[#2f7cff]" />
+                <div className="w-12 h-12 rounded-xl bg-[#eef7fa] flex items-center justify-center mb-4 group-hover:bg-[#3DB7F4]/20 transition-colors duration-300">
+                  <feature.icon className="w-6 h-6 text-[#3DB7F4]" />
                 </div>
                 <h3 className="text-lg font-semibold text-[#3d4f5f] mb-2">
                   {feature.title}
@@ -175,7 +175,7 @@ export function WhyUs() {
           style={{ transitionDelay: "1000ms" }}
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Zap className="w-8 h-8 text-[#2f7cff]" />
+            <Zap className="w-8 h-8 text-[#3DB7F4]" />
           </div>
           <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
             Вашу систему проектируют специалисты мирового уровня

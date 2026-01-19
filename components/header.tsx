@@ -87,7 +87,7 @@ export function Header() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <button
-              className="bg-[#2f7cff] hover:bg-[#2563eb] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#2f7cff]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
+              className="bg-[#3DB7F4] hover:bg-[#2563eb] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#3DB7F4]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
               onClick={(e) => scrollToSection("#contact", e)}
             >
           Записаться на консультацию
@@ -141,7 +141,7 @@ export function Header() {
 
         <div className="mt-12 space-y-8 transition-all duration-500 delay-100">
           <button
-            className="w-full bg-[#2f7cff] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#2f7cff]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
+            className="w-full bg-[#3DB7F4] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#3DB7F4]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
             onClick={(e) => scrollToSection("#contact", e)}
           >
             Записаться на консультацию

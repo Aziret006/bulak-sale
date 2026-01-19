@@ -136,13 +136,13 @@ export function Quiz() {
       className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-[#f8fbfc] to-white"
     >
       {/* Background */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2f7cff]/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#3DB7F4]/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#3d4f5f]/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-2xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <span className="inline-block text-[#2f7cff] font-medium text-sm uppercase tracking-wider mb-4">
+          <span className="inline-block text-[#3DB7F4] font-medium text-sm uppercase tracking-wider mb-4">
             Бесплатный аудит
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#3d4f5f] mb-4 text-balance">
@@ -164,7 +164,7 @@ export function Quiz() {
           </div>
           <div className="h-2 bg-[#e8eef1] rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#2f7cff] transition-all duration-500 ease-out rounded-full"
+              className="h-full bg-[#3DB7F4] transition-all duration-500 ease-out rounded-full"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -188,13 +188,13 @@ export function Quiz() {
                     }
                     className={`w-full p-5 rounded-xl border-2 text-left transition-all duration-300 group hover:shadow-lg ${
                       answers[questions[currentStep].id] === option.id
-                        ? "border-[#2f7cff] bg-[#2f7cff]/10"
-                        : "border-[#e8eef1] hover:border-[#2f7cff]/50"
+                        ? "border-[#3DB7F4] bg-[#3DB7F4]/10"
+                        : "border-[#e8eef1] hover:border-[#3DB7F4]/50"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-[#3d4f5f] group-hover:text-[#2f7cff] transition-colors">
+                        <p className="font-medium text-[#3d4f5f] group-hover:text-[#3DB7F4] transition-colors">
                           {option.label}
                         </p>
                         <p className="text-sm text-[#5a6a7a] mt-1">
@@ -204,7 +204,7 @@ export function Quiz() {
                       <div
                         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                           answers[questions[currentStep].id] === option.id
-                            ? "border-[#2f7cff] bg-[#2f7cff]"
+                            ? "border-[#3DB7F4] bg-[#3DB7F4]"
                             : "border-[#d0d7dc]"
                         }`}
                       >
@@ -261,7 +261,7 @@ export function Quiz() {
                         name: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 rounded-xl border border-[#e8eef1] bg-white text-[#3d4f5f] focus:outline-none focus:ring-2 focus:ring-[#2f7cff]/50 focus:border-[#2f7cff] transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-[#e8eef1] bg-white text-[#3d4f5f] focus:outline-none focus:ring-2 focus:ring-[#3DB7F4]/50 focus:border-[#3DB7F4] transition-all"
                     placeholder="Как вас зовут?"
                   />
                 </div>
@@ -283,7 +283,7 @@ export function Quiz() {
                         phone: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 rounded-xl border border-[#e8eef1] bg-white text-[#3d4f5f] focus:outline-none focus:ring-2 focus:ring-[#2f7cff]/50 focus:border-[#2f7cff] transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-[#e8eef1] bg-white text-[#3d4f5f] focus:outline-none focus:ring-2 focus:ring-[#3DB7F4]/50 focus:border-[#3DB7F4] transition-all"
                     placeholder="+996 XXX XXX XXX"
                   />
                 </div>
@@ -302,7 +302,7 @@ export function Quiz() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-[#2f7cff] text-white hover:bg-[#4aa5c6]"
+                  className="flex-1 bg-[#3DB7F4] text-white hover:bg-[#4aa5c6]"
                 >
                   {isSubmitting ? (
                     <>
