@@ -13,11 +13,11 @@ export default function HomePage() {
     <main className="relative mx-auto max-w-360 w-[90%]">
       <Header />
       <Hero />
+      <Quiz />
       <Services />
       <Service />
       <WhyUs />
       <Process />
-      <Quiz />
       <Footer />
       <FloatingCTA />
     </main>

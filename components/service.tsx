@@ -37,6 +37,22 @@ const services = [
     description:
       "Нативное мобильное приложение для iOS и Android с синхронизацией данных и push-уведомлениями.",
   },
+    {
+      id: "marketing",
+      icon: Smartphone,
+      title: "Маркетинг и продвижение",
+      price: "850 ",
+      currency: "USD",
+      duration: "Срок: от 2 недель",
+      description:
+        "Маркетинговое продвижение через социальные сети и поиски в поиске Gaze.kg",
+      features: [
+        "Контент: 25 публикаций и 4 сторис ежедневно",
+        "Таргет: постоянные тесты рекламных гипотез",
+        "Съёмки: 2 выезда в неделю",
+        "Стратегия: анализ ЦА и конкурентов на старте",
+      ],
+    },
 ];
 
 export function Service() {
@@ -80,7 +96,7 @@ export function Service() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 max-w-8xl mx-auto">
           {services.map((service, index) => (
             <div
               key={service.id}
