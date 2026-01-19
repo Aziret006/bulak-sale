@@ -18,6 +18,7 @@ const services = [
     title: "Малый бизнес",
     subtitle: "Быстрый старт и порядок",
     description: "Для тех, кто хочет выйти из хаоса тетрадей и WhatsApp.",
+    price: '300 USD',
     benefits: [
       "Все заявки из Instagram и WhatsApp в одной системе",
       "AI-бот отвечает клиентам 24/7, пока вы отдыхаете",
@@ -30,6 +31,7 @@ const services = [
     title: "Средний бизнес",
     subtitle: "Системные продажи и контроль",
     description: "Для тех, у кого уже есть команда, но нет прозрачности.",
+    price: '500 USD',
     popular: true,
     benefits: [
       "Видите реальную работу каждого менеджера",
@@ -43,6 +45,7 @@ const services = [
     title: "Крупный бизнес",
     subtitle: "Цифровая экосистема и масштаб",
     description: "Для корпораций с высокими требованиями к надежности.",
+    price: '800 USD',
     benefits: [
       "Синхронизация CRM с 1С, складом и логистикой",
       "Архитектура для систем на 12 000+ пользователей",
@@ -138,9 +141,11 @@ export function Services() {
                     <li key={benefit} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#3DB7F4] shrink-0 mt-0.5" />
                       <span className="text-sm text-[#5a6a7a]">{benefit}</span>
+                      
                     </li>
                   ))}
                 </ul>
+                <h3 className="text-xl lg:text-2xl font-bold text-center text-[#5a6a7a] mb-8">{service.price}</h3>
 
                 {/* CTA */}
                 <Link href="#contact">
