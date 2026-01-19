@@ -2,39 +2,52 @@
 
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FileText, LayoutGrid, Smartphone } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  TrendingUp,
+  Building2,
+  CheckCircle,
+} from "lucide-react";
+import Link from "next/link";
 
 const services = [
   {
-    id: "landing",
-    icon: FileText,
-    title: "Одностраничный Сайт",
-    price: "300",
-    currency: "USD",
-    duration: "Срок: от 10 дней",
-    description:
-      "Продающая лендинг-страница с формой обратной связи и интеграцией с мессенджерами.",
+    id: "small",
+    icon: Sparkles,
+    title: "Малый бизнес",
+    subtitle: "Быстрый старт и порядок",
+    description: "Для тех, кто хочет выйти из хаоса тетрадей и WhatsApp.",
+    benefits: [
+      "Все заявки из Instagram и WhatsApp в одной системе",
+      "AI-бот отвечает клиентам 24/7, пока вы отдыхаете",
+      "Порядок в базе клиентов и ни одного пропущенного звонка",
+    ],
   },
   {
-    id: "corporate",
-    icon: LayoutGrid,
-    title: "Корпоративный Сайт",
-    price: "1000",
-    currency: "USD",
-    duration: "Срок: от 15 дней",
-    description:
-      "Многостраничный сайт с админ-панелью, каталогом товаров/услуг и системой управления контентом.",
+    id: "medium",
+    icon: TrendingUp,
+    title: "Средний бизнес",
+    subtitle: "Системные продажи и контроль",
+    description: "Для тех, у кого уже есть команда, но нет прозрачности.",
     popular: true,
+    benefits: [
+      "Видите реальную работу каждого менеджера",
+      "Отчетность в телефоне: касса, расходы и чистая прибыль",
+      "Освобождаете до 10 часов в неделю",
+    ],
   },
   {
-    id: "mobile",
-    icon: Smartphone,
-    title: "Мобильное Приложение",
-    price: "3000",
-    currency: "USD",
-    duration: "Срок: 8-12 недель",
-    description:
-      "Нативное мобильное приложение для iOS и Android с синхронизацией данных и push-уведомлениями.",
+    id: "enterprise",
+    icon: Building2,
+    title: "Крупный бизнес",
+    subtitle: "Цифровая экосистема и масштаб",
+    description: "Для корпораций с высокими требованиями к надежности.",
+    benefits: [
+      "Синхронизация CRM с 1С, складом и логистикой",
+      "Архитектура для систем на 12 000+ пользователей",
+      "Полная прозрачность и безопасность данных",
+    ],
   },
 ];
 
@@ -63,86 +76,83 @@ export function Services() {
 
   return (
     <section
-      id="pricing"
+      id="services"
       ref={sectionRef}
       className="relative py-24 md:py-32 overflow-hidden bg-white"
     >
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-            Наши услуги и цены
+          <span className="inline-block text-[#2f7cff] font-medium text-sm uppercase tracking-wider mb-4">
+            Наши услуги
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3d4f5f] mb-6 text-balance">
+            Как мы облегчаем вашу жизнь:{" "}
+            <span className="text-[#2f7cff]">3 уровня</span> автоматизации
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            Выберите подходящее решение для вашего бизнеса
+          <p className="text-lg text-[#5a6a7a] leading-relaxed">
+            Выберите решение, подходящее для вашего масштаба бизнеса
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <div
               key={service.id}
               data-index={index}
-              className={`service-card relative bg-white border-2 rounded-3xl p-8 transition-all duration-700 hover:shadow-2xl ${
+              className={`service-card group relative bg-white border border-[#e8eef1] rounded-2xl p-6 lg:p-8 transition-all duration-700 hover:shadow-xl hover:border-[#2f7cff]/30 ${
                 visibleCards.includes(index)
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
-              } ${
-                service.popular
-                  ? "border-[#2f7cff] shadow-xl shadow-[#2f7cff]/10"
-                  : "border-gray-200 hover:border-[#2f7cff]/50"
-              }`}
+              } ${service.popular ? "ring-2 ring-[#2f7cff]" : ""}`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {service.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2f7cff] text-white text-sm font-medium px-5 py-1.5 rounded-full">
-                  Популярно
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2f7cff] text-white text-xs font-medium px-4 py-1 rounded-full">
+                  Популярный выбор
                 </div>
               )}
 
-              {/* Icon */}
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                service.popular ? "bg-[#2f7cff]/10" : "bg-gray-100"
-              }`}>
-                <service.icon className={`w-8 h-8 ${service.popular ? "text-[#2f7cff]" : "text-[#2f7cff]"}`} />
+              {/* Hover Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#2f7cff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+
+              <div className="relative z-10">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-xl bg-[#eef7fa] flex items-center justify-center mb-6 group-hover:bg-[#2f7cff]/20 transition-colors duration-300">
+                  <service.icon className="w-7 h-7 text-[#2f7cff]" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl lg:text-2xl font-bold text-[#3d4f5f] mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-[#2f7cff] font-medium mb-3">
+                  {service.subtitle}
+                </p>
+                <p className="text-[#5a6a7a] mb-6">{service.description}</p>
+
+                {/* Benefits */}
+                <ul className="space-y-3 mb-8">
+                  {service.benefits.map((benefit) => (
+                    <li key={benefit} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-[#2f7cff] shrink-0 mt-0.5" />
+                      <span className="text-sm text-[#5a6a7a]">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <Link href="#contact">
+                  <Button
+                    variant="outline"
+                    className="w-full group/btn border-[#e8eef1] hover:bg-[#2f7cff] hover:text-white hover:border-[#2f7cff] transition-all duration-300 bg-transparent text-[#3d4f5f]"
+                  >
+                    Хочу такую систему
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </div>
-
-              {/* Title */}
-              <h3 className="text-xl lg:text-2xl font-bold text-black mb-6 text-center">
-                {service.title}
-              </h3>
-
-              {/* Price */}
-              <div className="text-center mb-4">
-                <span className="text-gray-500 text-sm">от </span>
-                <span className="text-4xl lg:text-5xl font-bold text-[#2f7cff]">
-                  {service.price}
-                </span>
-                <span className="text-gray-600 text-lg ml-2">{service.currency}</span>
-              </div>
-
-              {/* Duration */}
-              <p className="text-center text-gray-500 text-sm mb-6">
-                {service.duration}
-              </p>
-
-              {/* Description */}
-              <p className="text-gray-600 text-center mb-8 leading-relaxed">
-                {service.description}
-              </p>
-
-              {/* CTA */}
-              <Button
-                variant="outline"
-                className={`w-full rounded-full h-12 font-medium transition-all duration-300 ${
-                  service.popular
-                    ? "border-[#2f7cff] text-[#2f7cff] hover:bg-[#2f7cff] hover:text-white bg-transparent"
-                    : "border-gray-300 text-black hover:border-[#2f7cff] hover:text-[#2f7cff] bg-transparent"
-                }`}
-              >
-                Узнать подробнее
-              </Button>
             </div>
           ))}
         </div>

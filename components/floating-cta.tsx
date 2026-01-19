@@ -1,82 +1,143 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { MessageCircle, X, Phone } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { 
+  MessageCircle, 
+  X, 
+  Phone, 
+  Mail, 
+  Send,
+  MessageSquare
+} from 'lucide-react';
 
-export function FloatingCTA() {
+export const FloatingCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
+      const shouldBeVisible = window.scrollY > 300;
+      if (shouldBeVisible !== isVisible) {
+        setIsVisible(shouldBeVisible);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isVisible]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsExpanded(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  return (
-    <div
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ease-out
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"}
-      `}
-    >
-      {/* Expanded buttons */}
-      <div
-        className={`absolute bottom-20 right-0 flex flex-col gap-3 transition-all duration-300 ease-out
-          ${isExpanded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
-        `}
-      >
-        <a
-          href="https://wa.me/996222233002"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-green-600 text-white px-4 py-3 rounded-xl shadow-lg
-          hover:bg-green-700 hover:scale-105 transition"
-        >
-          <span className="text-sm font-medium whitespace-nowrap">
-            WhatsApp
-          </span>
-          <MessageCircle className="w-5 h-5" />
-        </a>
+  const contactOptions = [
+    {
+      id: 'whatsapp',
+      label: 'WhatsApp',
+      icon: <MessageSquare className="w-5 h-5" />,
+      href: 'https://wa.me/996222233002',
+      color: 'bg-[#25D366]',
+      hover: 'hover:bg-[#128C7E]',
+      textColor: 'text-white'
+    },
+    {
+      id: 'telegram',
+      label: 'Telegram',
+      icon: <Send className="w-5 h-5" />,
+      href: 'https://t.me/+996222233002',
+      color: 'bg-[#0088cc]',
+      hover: 'hover:bg-[#0077b5]',
+      textColor: 'text-white'
+    },
+    {
+      id: 'phone',
+      label: 'Позвонить',
+      icon: <Phone className="w-5 h-5" />,
+      href: 'tel:+996222233002',
+      color: 'bg-slate-800',
+      hover: 'hover:bg-slate-900',
+      textColor: 'text-white'
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      icon: <Mail className="w-5 h-5" />,
+      href: 'mailto:contact@example.com',
+      color: 'bg-white',
+      hover: 'hover:bg-slate-50',
+      textColor: 'text-slate-900',
+      border: 'border border-slate-200'
+    }
+  ];
 
-        <a
-          href="tel:+996222233002"
-          className="flex items-center gap-3 bg-[#3d4f5f] text-white px-4 py-3 rounded-xl shadow-lg
-          hover:bg-[#2d3f4f] hover:scale-105 transition"
-        >
-          <span className="text-sm font-medium whitespace-nowrap">
-            Позвонить
-          </span>
-          <Phone className="w-5 h-5" />
-        </a>
+  return (
+    <div className={`fixed bottom-8 right-8 z-[100] flex flex-col items-end transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
+      
+      {/* Background Overlay */}
+      {isExpanded && (
+        <div 
+          onClick={() => setIsExpanded(false)}
+          className="fixed inset-0 bg-slate-900/10 backdrop-blur-[2px] z-[-1] cursor-pointer"
+        />
+      )}
+
+      {/* Contact Options List */}
+      <div className={`mb-4 flex flex-col items-end gap-3 w-max transition-all duration-300 transform ${isExpanded ? 'scale-100 opacity-100' : 'scale-90 opacity-0 pointer-events-none translate-y-4'}`}>
+        {contactOptions.map((option) => (
+          <a
+            key={option.id}
+            href={option.href}
+            target={option.id !== 'phone' ? '_blank' : undefined}
+            rel="noopener noreferrer"
+            className={`
+              flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl transition-all duration-300 hover:translate-x-[-4px] active:scale-95
+              ${option.color} ${option.textColor} ${option.hover} ${option.border || ''}
+            `}
+          >
+            <span className="text-sm font-semibold whitespace-nowrap px-1">
+              {option.label}
+            </span>
+            <div className="p-1">
+              {option.icon}
+            </div>
+          </a>
+        ))}
       </div>
 
-      {/* Main button wrapper */}
+      {/* Main Trigger Button */}
       <div className="relative">
-        {/* Pulse */}
+        {/* Pulse Ring */}
         {!isExpanded && (
-          <span className="absolute inset-0 rounded-full bg-[#2f7cff]/30 animate-ping pointer-events-none" />
+          <span className="absolute inset-0 rounded-full bg-indigo-500/30 animate-ping z-[-1]" />
         )}
 
-        {/* Button */}
         <button
-          type="button"
-          onClick={() => setIsExpanded(prev => !prev)}
-          aria-label="Связаться с нами"
-          className={`relative z-10 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center
-          transition-all duration-300 hover:scale-110
-          ${isExpanded ? "bg-[#e8eef1] text-[#3d4f5f] rotate-180" : "bg-[#2f7cff] text-white"}
-        `}
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={`
+            relative w-16 h-16 rounded-full flex items-center justify-center shadow-2xl
+            transition-all duration-300 active:scale-90
+            ${isExpanded ? 'bg-white text-slate-800 rotate-90' : 'bg-indigo-600 text-white'}
+          `}
+          aria-label={isExpanded ? "Закрыть меню" : "Связаться с нами"}
         >
           {isExpanded ? (
-            <X className="w-6 h-6" />
+            <X className="w-8 h-8" />
           ) : (
-            <MessageCircle className="w-6 h-6" />
+            <MessageCircle className="w-8 h-8" />
+          )}
+
+          {/* Tooltip */}
+          {!isExpanded && (
+            <div className="absolute right-full mr-4 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+              Нужна помощь?
+            </div>
           )}
         </button>
       </div>
     </div>
   );
-}
+};

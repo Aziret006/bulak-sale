@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 const navLinks = [
   { href: "#services", label: "Услуги" },
@@ -14,21 +12,31 @@ const navLinks = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Функция для плавной прокрутки к секции
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
     
-    // Закрываем мобильное меню если открыто
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-    
-    // Находим элемент по ID
     const element = document.querySelector(sectionId);
     if (element) {
-      // Плавная прокрутка с учетом высоты хедера
-      const headerHeight = 80; // Высота хедера в пикселях
+      const headerHeight = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
@@ -40,106 +48,112 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 py-4 shadow-sm">
-      <div className="container mx-auto px-4 lg:px-[7%] md:px-8">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-110 transition-all duration-300 ${
+        isScrolled || isMobileMenuOpen 
+          ? "bg-white/95 backdrop-blur-md shadow-sm py-3" 
+          : "bg-transparent py-5"
+      }`}
+    >
+      <div className="container mx-auto px-6 lg:px-[7%]">
         <div className="flex items-center justify-between">
-          <div className="relative z-10 group cursor-pointer" onClick={(e) => scrollToSection("#hero", e)}>
-              <div className="flex items-center">
-               <span className="text-xl md:text-2xl font-extrabold tracking-tight">
+          {/* Logo */}
+          <div 
+            className="relative z-[120] cursor-pointer" 
+            onClick={(e) => scrollToSection("#hero", e)}
+          >
+            <div className="flex items-center">
+              <span className="text-xl md:text-2xl font-extrabold tracking-tight">
                 <span className="text-[#3A3F42]">BULAK</span>
                 <span className="text-[#3DB7F4]">SALE</span>
               </span>
             </div>
           </div>
-          <nav className="hidden lg:flex items-center gap-8">
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={(e) => scrollToSection(link.href, e)}
-                className="relative text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors duration-300 group outline-none focus:outline-none"
+                className="relative text-gray-700 hover:text-[#3DB7F4] text-sm font-semibold transition-colors duration-300 group outline-none"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2f7cff] to-transparent group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#3DB7F4] group-hover:w-full transition-all duration-300" />
               </button>
             ))}
           </nav>
+
+          {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-        
-            <Button
-              className="bg-gradient-to-r from-[#2f7cff] to-[#2f7cff]/80 hover:from-[#2563eb] hover:to-[#2563eb]/80 text-white rounded-full px-6 h-11 group shadow-lg shadow-[#2f7cff]/20 transition-all duration-300"
+            <button
+              className="bg-[#2f7cff] hover:bg-[#2563eb] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#2f7cff]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
               onClick={(e) => scrollToSection("#contact", e)}
             >
-              <div className="flex items-center gap-2">
-                     Записаться на консультацию
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </Button>
+          Записаться на консультацию
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
-          {/* Кнопка мобильного меню */}
+          {/* Burger Menu Button */}
           <button
             type="button"
-            className="lg:hidden relative z-10 p-2"
+            className="lg:hidden relative z-[120] p-2 flex items-center justify-center w-10 h-10 outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-label="Menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-900" />
-            ) : (
-              <div className="flex flex-col gap-1.5">
-                <div className="w-6 h-0.5 rounded-full bg-gray-900" />
-                <div className="w-6 h-0.5 rounded-full bg-gray-900" />
-                <div className="w-6 h-0.5 rounded-full bg-gray-900" />
-              </div>
-            )}
+            <div className="relative w-6 h-5">
+              <span 
+                className={`absolute left-0 w-full h-0.5 bg-gray-900 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? "top-2 rotate-45" : "top-0"
+                }`} 
+              />
+              <span 
+                className={`absolute left-0 top-2 w-full h-0.5 bg-gray-900 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"
+                }`} 
+              />
+              <span 
+                className={`absolute left-0 w-full h-0.5 bg-gray-900 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? "top-2 -rotate-45" : "top-4"
+                }`} 
+              />
+            </div>
           </button>
         </div>
+      </div>
 
-        {/* Мобильное меню */}
-        <div
-          className={`lg:hidden fixed inset-0 bg-white transition-all duration-300 ${
-            isMobileMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-          style={{ top: "80px" }}
-        >
-          <nav className="relative flex flex-col items-center justify-center h-full gap-8 pb-20 z-10">
-            {navLinks.map((link, index) => (
-              <button
-                key={link.href}
-                onClick={(e) => scrollToSection(link.href, e)}
-                className="text-2xl font-medium text-gray-900 hover:text-[#2f7cff] transition-all duration-300 outline-none focus:outline-none"
-                style={{
-                  transitionDelay: isMobileMenuOpen ? `${index * 100}ms` : "0ms",
-                  transform: isMobileMenuOpen
-                    ? "translateY(0)"
-                    : "translateY(20px)",
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                }}
-              >
-                {link.label}
-              </button>
-            ))}
-            
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#2f7cff] to-[#2f7cff]/80 hover:from-[#2563eb] hover:to-[#2563eb]/80 text-white rounded-full px-8 mt-6 h-14 text-base font-semibold shadow-lg shadow-[#2f7cff]/20 transition-all duration-300"
-              style={{
-                transitionDelay: isMobileMenuOpen ? "400ms" : "0ms",
-                transform: isMobileMenuOpen
-                  ? "translateY(0)"
-                  : "translateY(20px)",
-                opacity: isMobileMenuOpen ? 1 : 0,
-              }}
-              onClick={(e) => scrollToSection("#contact", e)}
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-white z-115 pt-24 pb-112 px-8 lg:hidden flex flex-col justify-between overflow-y-auto transition-all duration-300 ${
+          isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+        }`}
+      >
+        <nav className="flex flex-col gap-8">
+          {navLinks.map((link) => (
+            <button
+              key={link.href}
+              onClick={(e) => scrollToSection(link.href, e)}
+              className="text-3xl font-bold text-left text-gray-900 hover:text-[#3DB7F4] transition-colors"
             >
-              <div className="flex items-center gap-2">
-                 Записаться на консультацию
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </Button>
-          </nav>
+              {link.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="mt-12 space-y-8 transition-all duration-500 delay-100">
+          <button
+            className="w-full bg-[#2f7cff] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#2f7cff]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
+            onClick={(e) => scrollToSection("#contact", e)}
+          >
+            Записаться на консультацию
+            <ArrowRight className="w-5 h-5" />
+          </button>
+          
+          <div className="flex justify-between items-center text-gray-500 text-sm">
+            <span>+996 222 233 002</span>
+            <span>Бишкек, Кыргызстан</span>
+          </div>
         </div>
       </div>
     </header>
