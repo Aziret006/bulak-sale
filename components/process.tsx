@@ -68,12 +68,12 @@ export function Process() {
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <span className="inline-block text-[#2f7cff] font-medium text-sm uppercase tracking-wider mb-4">
+          <span className="inline-block text-[#3DB7F4] font-medium text-sm uppercase tracking-wider mb-4">
             Как мы работаем
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3d4f5f] mb-6 text-balance">
             От первого звонка до{" "}
-            <span className="text-[#2f7cff]">результата</span>
+            <span className="text-[#3DB7F4]">результата</span>
           </h2>
           <p className="text-lg text-[#5a6a7a] leading-relaxed">
             Прозрачный процесс внедрения: вы всегда знаете на каком этапе мы
@@ -84,7 +84,7 @@ export function Process() {
         {/* Process Steps */}
         <div className="relative">
           {/* Connection Line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#2f7cff]/30 to-transparent -translate-y-1/2" />
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#3DB7F4]/30 to-transparent -translate-y-1/2" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
@@ -97,15 +97,15 @@ export function Process() {
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className="bg-white border border-[#e8eef1] rounded-2xl p-6 hover:shadow-xl hover:border-[#2f7cff]/30 transition-all duration-300 group h-full">
+                <div className="bg-white border border-[#e8eef1] rounded-2xl p-6 hover:shadow-xl hover:border-[#3DB7F4]/30 transition-all duration-300 group h-full">
                   {/* Number badge */}
-                  <div className="absolute -top-4 left-6 bg-[#2f7cff] text-white text-sm font-bold px-3 py-1 rounded-full">
+                  <div className="absolute -top-4 left-6 bg-[#3DB7F4] text-white text-sm font-bold px-3 py-1 rounded-full">
                     {step.number}
                   </div>
 
                   {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-[#eef7fa] flex items-center justify-center mb-4 mt-2 group-hover:bg-[#2f7cff]/20 transition-colors duration-300">
-                    <step.icon className="w-7 h-7 text-[#2f7cff]" />
+                  <div className="w-14 h-14 rounded-xl bg-[#eef7fa] flex items-center justify-center mb-4 mt-2 group-hover:bg-[#3DB7F4]/20 transition-colors duration-300">
+                    <step.icon className="w-7 h-7 text-[#3DB7F4]" />
                   </div>
 
                   {/* Content */}
@@ -117,8 +117,8 @@ export function Process() {
                   </p>
 
                   {/* Duration */}
-                  <div className="inline-flex items-center gap-2 text-xs font-medium text-[#2f7cff] bg-[#eef7fa] px-3 py-1.5 rounded-full">
-                    <span className="w-1.5 h-1.5 bg-[#2f7cff] rounded-full" />
+                  <div className="inline-flex items-center gap-2 text-xs font-medium text-[#3DB7F4] bg-[#eef7fa] px-3 py-1.5 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-[#3DB7F4] rounded-full" />
                     {step.duration}
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export function Process() {
                   <div className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 z-10">
                     <div className="w-8 h-8 bg-white border border-[#e8eef1] rounded-full flex items-center justify-center shadow-sm">
                       <svg
-                        className="w-4 h-4 text-[#2f7cff]"
+                        className="w-4 h-4 text-[#3DB7F4]"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -150,7 +150,7 @@ export function Process() {
 
         {/* CTA Banner */}
         <div
-          className={`mt-16 md:mt-20 bg-gradient-to-r from-[#2f7cff] to-[#4aa5c6] rounded-3xl p-8 md:p-12 text-center transition-all duration-1000 ${
+          className={`mt-16 md:mt-20 bg-gradient-to-r from-[#3DB7F4] to-[#4aa5c6] rounded-3xl p-8 md:p-12 text-center transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
           style={{ transitionDelay: "800ms" }}

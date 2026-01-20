@@ -107,22 +107,22 @@ export function Service() {
                   : "opacity-0 translate-y-12"
               } ${
                 service.popular
-                  ? "border-[#2f7cff] shadow-xl shadow-[#2f7cff]/10"
-                  : "border-gray-200 hover:border-[#2f7cff]/50"
+                  ? "border-[#3DB7F4] shadow-xl shadow-[#3DB7F4]/10"
+                  : "border-gray-200 hover:border-[#3DB7F4]/50"
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {service.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2f7cff] text-white text-sm font-medium px-5 py-1.5 rounded-full">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3DB7F4] text-white text-sm font-medium px-5 py-1.5 rounded-full">
                   Популярно
                 </div>
               )}
 
               {/* Icon */}
               <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                service.popular ? "bg-[#2f7cff]/10" : "bg-gray-100"
+                service.popular ? "bg-[#3DB7F4]/10" : "bg-gray-100"
               }`}>
-                <service.icon className={`w-8 h-8 ${service.popular ? "text-[#2f7cff]" : "text-[#2f7cff]"}`} />
+                <service.icon className={`w-8 h-8 ${service.popular ? "text-[#3DB7F4]" : "text-[#3DB7F4]"}`} />
               </div>
 
               {/* Title */}
@@ -133,7 +133,7 @@ export function Service() {
               {/* Price */}
               <div className="text-center mb-4">
                 <span className="text-gray-500 text-sm">от </span>
-                <span className="text-4xl lg:text-5xl font-bold text-[#2f7cff]">
+                <span className="text-4xl lg:text-5xl font-bold text-[#3DB7F4]">
                   {service.price}
                 </span>
                 <span className="text-gray-600 text-lg ml-2">{service.currency}</span>
@@ -154,8 +154,8 @@ export function Service() {
                 variant="outline"
                 className={`w-full rounded-full h-12 font-medium transition-all duration-300 ${
                   service.popular
-                    ? "border-[#2f7cff] text-[#2f7cff] hover:bg-[#2f7cff] hover:text-white bg-transparent"
-                    : "border-gray-300 text-black hover:border-[#2f7cff] hover:text-[#2f7cff] bg-transparent"
+                    ? "border-[#3DB7F4] text-[#3DB7F4] hover:bg-[#3DB7F4] hover:text-white bg-transparent"
+                    : "border-gray-300 text-black hover:border-[#3DB7F4] hover:text-[#3DB7F4] bg-transparent"
                 }`}
               >
                 <a href="https://wa.me/996708772844" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>

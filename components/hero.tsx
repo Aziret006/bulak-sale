@@ -24,14 +24,14 @@ export function Hero() {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="absolute top-20 right-10 w-72 h-72 bg-[#2f7cff]/10 rounded-full blur-3xl animate-pulse"
+          className="absolute top-20 right-10 w-72 h-72 bg-[#3DB7F4]/10 rounded-full blur-3xl animate-pulse"
           style={{ animationDuration: "4s" }}
         />
         <div
-          className="absolute bottom-20 left-10 w-96 h-96 bg-[#2f7cff]/5 rounded-full blur-3xl animate-pulse"
+          className="absolute bottom-20 left-10 w-96 h-96 bg-[#3DB7F4]/5 rounded-full blur-3xl animate-pulse"
           style={{ animationDuration: "6s", animationDelay: "1s" }}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#2f7cff]/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#3DB7F4]/5 to-transparent rounded-full blur-3xl" />
       </div>
 
       {/* Grid pattern */}
@@ -53,15 +53,15 @@ export function Hero() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <div className="inline-flex items-center gap-2 bg-[#2f7cff]/10 text-[#3d4f5f] rounded-full px-4 py-2 text-sm font-medium mb-6">
-              <span className="w-2 h-2 bg-[#2f7cff] rounded-full animate-pulse" />
+            <div className="inline-flex items-center gap-2 bg-[#3DB7F4]/10 text-[#3d4f5f] rounded-full px-4 py-2 text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-[#3DB7F4] rounded-full animate-pulse" />
               Официальный партнер Битрикс24
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#3d4f5f] leading-tight mb-6">
               Автоматизируем
               <span className="relative">
-                <span className="text-[#2f7cff]"> ваш бизнес</span>
+                <span className="text-[#3DB7F4]"> ваш бизнес</span>
                 <svg
                   className="absolute -bottom-2 left-0 w-full"
                   viewBox="0 0 200 12"
@@ -69,7 +69,7 @@ export function Hero() {
                 >
                   <path
                     d="M2 8C50 2 150 2 198 8"
-                    stroke="#2f7cff"
+                    stroke="#3DB7F4"
                     strokeWidth="3"
                     strokeLinecap="round"
                     style={{
@@ -93,7 +93,7 @@ export function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#2f7cff] hover:bg-[#4aa5c6] text-white rounded-full px-8 h-14 text-base font-medium group shadow-lg shadow-[#2f7cff]/25 hover:shadow-xl hover:shadow-[#2f7cff]/30 transition-all duration-300"
+                className="bg-[#3DB7F4] hover:bg-[#4aa5c6] text-white rounded-full px-8 h-14 text-base font-medium group shadow-lg shadow-[#3DB7F4]/25 hover:shadow-xl hover:shadow-[#3DB7F4]/30 transition-all duration-300"
               >
                 <Link href="#contact" className="flex items-center gap-2">
                   Бесплатная консультация
@@ -122,7 +122,7 @@ export function Hero() {
                     transition: "all 0.5s ease-out",
                   }}
                 >
-                  <CheckCircle2 className="w-5 h-5 text-[#2f7cff] flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#3DB7F4] flex-shrink-0" />
                   <span className="text-sm">{benefit}</span>
                 </div>
               ))}
@@ -173,7 +173,7 @@ export function Hero() {
                     <span className="text-sm font-medium text-[#3d4f5f]">
                       Рост конверсии после внедрения
                     </span>
-                    <span className="text-sm font-bold text-[#2f7cff]">
+                    <span className="text-sm font-bold text-[#3DB7F4]">
                       +47%
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export function Hero() {
                     {[35, 42, 38, 55, 62, 58, 75, 82].map((height, index) => (
                       <div
                         key={index}
-                        className="flex-1 bg-gradient-to-t from-[#2f7cff] to-[#8ad4ed] rounded-t-lg transition-all duration-700"
+                        className="flex-1 bg-gradient-to-t from-[#3DB7F4] to-[#8ad4ed] rounded-t-lg transition-all duration-700"
                         style={{
                           height: isVisible ? `${height}%` : "0%",
                           transitionDelay: `${1000 + index * 100}ms`,
@@ -194,7 +194,7 @@ export function Hero() {
 
               {/* Floating badge */}
               <div
-                className="absolute -top-4 -right-4 bg-[#2f7cff] text-white rounded-2xl px-5 py-3 shadow-lg shadow-[#2f7cff]/30 animate-float"
+                className="absolute -top-4 -right-4 bg-[#3DB7F4] text-white rounded-2xl px-5 py-3 shadow-lg shadow-[#3DB7F4]/30 animate-float"
               >
                 <div className="text-2xl font-bold">24/7</div>
                 <div className="text-xs opacity-90">Поддержка</div>
