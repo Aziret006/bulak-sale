@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import './globals.css';
 
 const inter = Inter({ 
@@ -17,7 +16,6 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-// Структурированные данные для локального бизнеса
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -180,7 +178,6 @@ export default function RootLayout({
       <body className={`font-sans antialiased bg-white text-gray-900`}>
         {children}
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
