@@ -40,7 +40,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'whatsapp',
       label: 'WhatsApp',
       icon: <MessageSquare className="w-5 h-5" />,
-      href: 'https://wa.me/996708772844',
+      href: 'https://wa.me/996222233002',
       color: 'bg-[#25D366]',
       hover: 'hover:bg-[#128C7E]',
       textColor: 'text-white'
@@ -58,7 +58,7 @@ export const FloatingCTA: React.FC = () => {
       id: 'phone',
       label: 'Позвонить',
       icon: <Phone className="w-5 h-5" />,
-      href: 'tel:+996708772844',
+      href: 'tel:+996222233002',
       color: 'bg-slate-800',
       hover: 'hover:bg-slate-900',
       textColor: 'text-white'

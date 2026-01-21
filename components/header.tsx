@@ -89,7 +89,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <Link
               className="bg-[#3DB7F4] hover:bg-[#3DB7F4] text-white rounded-full px-7 h-12 font-bold shadow-lg shadow-[#3DB7F4]/20 transition-all duration-300 flex items-center gap-2 group active:scale-95"
-              href="https://wa.me/996708772844" target="_blank" rel="noreferrer"
+              href="https://wa.me/996222233002" target="_blank" rel="noreferrer"
             >
           Записаться на консультацию
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -143,7 +143,7 @@ export function Header() {
         <div className="mt-12 space-y-8 transition-all duration-500 delay-100">
           <Link
             className="w-full bg-[#3DB7F4] text-white rounded-2xl py-5 text-lg font-bold shadow-xl shadow-[#3DB7F4]/20 flex items-center justify-center gap-3 active:scale-95 transition-transform"
-            href="https://wa.me/996708772844" target="_blank" rel="noreferrer"
+            href="https://wa.me/996222233002" target="_blank" rel="noreferrer"
             // onClick={(e) => scrollToSection("#contact", e)}
           >
             Записаться на консультацию

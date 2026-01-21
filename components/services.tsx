@@ -148,7 +148,7 @@ export function Services() {
                 <h3 className="text-xl lg:text-2xl font-bold text-center text-[#5a6a7a] mb-8">{service.price}</h3>
 
                 {/* CTA */}
-                <Link href="https://wa.me/996708772844" target="_blank" rel="noreferrer">
+                <Link href="https://wa.me/996222233002" target="_blank" rel="noreferrer">
                   <Button
                     variant="outline"
                     className="w-full group/btn border-[#e8eef1] hover:bg-[#3DB7F4] hover:text-white hover:border-[#3DB7F4] transition-all duration-300 bg-transparent text-[#3d4f5f]"

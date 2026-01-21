@@ -102,7 +102,7 @@ export function Footer() {
                     +996 222 233 002
                   </a>
                   <a
-                    href="tel:+996708772844"
+                    href="tel:+996222233002"
                     className="text-white/70 hover:text-white transition-colors block"
                   >
                     +996 708 772 844

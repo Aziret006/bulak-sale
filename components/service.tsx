@@ -158,7 +158,7 @@ export function Service() {
                     : "border-gray-300 text-black hover:border-[#3DB7F4] hover:text-[#3DB7F4] bg-transparent"
                 }`}
               >
-                <a href="https://wa.me/996708772844" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
+                <a href="https://wa.me/996222233002" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
               </Button>
             </div>
           ))}

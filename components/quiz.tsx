@@ -101,7 +101,7 @@ export function Quiz() {
       `🚀 _Готов к обсуждению решения_`;
     
     // Формируем ссылку WhatsApp
-    const whatsappUrl = `https://wa.me/996708772844?text=${message}`;
+    const whatsappUrl = `https://wa.me/996222233002?text=${message}`;
     
     // Открываем WhatsApp в новом окне
     window.open(whatsappUrl, '_blank');
