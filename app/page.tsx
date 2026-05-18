@@ -7,6 +7,7 @@ import { Quiz } from "@/components/quiz";
 import { Footer } from "@/components/footer";
 import { FloatingCTA } from "@/components/floating-cta";
 import { Service } from "@/components/service";
+import { BitrixLicense } from "@/components/bitrix-license";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Quiz />
       <Services />
       <Service />
+      <BitrixLicense />
       <WhyUs />
       <Process />
       <Footer />

@@ -1,7 +1,16 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 import {
   FileText,
   LayoutGrid,
@@ -30,6 +39,22 @@ type ServiceItem = {
 };
 
 const webServices: ServiceItem[] = [
+  {
+    id: "marketing",
+    icon: Smartphone,
+    title: "Маркетинг и продвижение",
+    price: "850",
+    currency: "USD",
+    duration: "Срок: от 2 недель",
+    description:
+      "Маркетинговое продвижение через социальные сети и поиски в поиске Gaze.kg",
+    features: [
+      "Контент: 25 публикаций и 4 сторис ежедневно",
+      "Таргет: постоянные тесты рекламных гипотез",
+      "Съёмки: 2 выезда в неделю",
+      "Стратегия: анализ ЦА и конкурентов на старте",
+    ],
+  },
   {
     id: "landing",
     icon: FileText,
@@ -61,22 +86,7 @@ const webServices: ServiceItem[] = [
     description:
       "Нативное мобильное приложение для iOS и Android с синхронизацией данных и push-уведомлениями.",
   },
-  {
-    id: "marketing",
-    icon: Smartphone,
-    title: "Маркетинг и продвижение",
-    price: "850",
-    currency: "USD",
-    duration: "Срок: от 2 недель",
-    description:
-      "Маркетинговое продвижение через социальные сети и поиски в поиске Gaze.kg",
-    features: [
-      "Контент: 25 публикаций и 4 сторис ежедневно",
-      "Таргет: постоянные тесты рекламных гипотез",
-      "Съёмки: 2 выезда в неделю",
-      "Стратегия: анализ ЦА и конкурентов на старте",
-    ],
-  },
+
 ];
 
 /** Пакеты настройки Bitrix24 — гибкая модель внедрения (аналог типовых пакетов на рынке). */
@@ -198,52 +208,55 @@ function ServiceCard({
   return (
     <div
       data-service-id={service.id}
-      className={`service-card relative bg-white border-2 rounded-3xl p-8 transition-all duration-700 hover:shadow-2xl ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      } ${
+      className={cn(
+        "service-card relative bg-white border-2 rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 transition-all duration-700 hover:shadow-2xl",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12",
         service.popular
           ? "border-[#3DB7F4] shadow-xl shadow-[#3DB7F4]/10"
-          : "border-gray-200 hover:border-[#3DB7F4]/50"
-      }`}
+          : "border-gray-200 hover:border-[#3DB7F4]/50",
+      )}
       style={{ transitionDelay: `${delayMs}ms` }}
     >
       {service.popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3DB7F4] text-white text-sm font-medium px-5 py-1.5 rounded-full">
+        <div className="absolute -top-3 lg:-top-4 left-1/2 -translate-x-1/2 bg-[#3DB7F4] text-white text-xs sm:text-sm font-medium px-4 py-1 lg:px-5 lg:py-1.5 rounded-full">
           Популярно
         </div>
       )}
 
       <div
-        className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-          service.popular ? "bg-[#3DB7F4]/10" : "bg-gray-100"
-        }`}
+        className={cn(
+          "w-12 h-12 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl flex items-center justify-center mb-4 lg:mb-6",
+          service.popular ? "bg-[#3DB7F4]/10" : "bg-gray-100",
+        )}
       >
-        <service.icon
-          className={`w-8 h-8 ${service.popular ? "text-[#3DB7F4]" : "text-[#3DB7F4]"}`}
-        />
+        <service.icon className="w-6 h-6 lg:w-8 lg:h-8 text-[#3DB7F4]" />
       </div>
 
-      <h3 className="text-xl lg:text-2xl font-bold text-black mb-6 text-center">
+      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black mb-4 lg:mb-6 text-center">
         {service.title}
       </h3>
 
-      <div className="text-center mb-4">
+      <div className="text-center mb-3 lg:mb-4">
         {showFrom && <span className="text-gray-500 text-sm">от </span>}
         {service.pricePrefix && (
           <span className="text-gray-500 text-sm">{service.pricePrefix}</span>
         )}
-        <span className="text-4xl lg:text-5xl font-bold text-[#3DB7F4]">
+        <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3DB7F4]">
           {service.price}
         </span>
-        <span className="text-gray-600 text-lg ml-2">{service.currency}</span>
+        <span className="text-gray-600 text-base lg:text-lg ml-1.5 lg:ml-2">
+          {service.currency}
+        </span>
       </div>
 
-      <p className="text-center text-gray-500 text-sm mb-6">{service.duration}</p>
+      <p className="text-center text-gray-500 text-sm mb-4 lg:mb-6">{service.duration}</p>
 
-      <p className="text-gray-600 text-center mb-6 leading-relaxed">{service.description}</p>
+      <p className="text-gray-600 text-center mb-4 lg:mb-6 leading-relaxed text-sm sm:text-base">
+        {service.description}
+      </p>
 
       {service.features && service.features.length > 0 && (
-        <ul className="text-gray-600 text-sm mb-8 space-y-2 text-left list-disc list-inside leading-relaxed">
+        <ul className="text-gray-600 text-sm mb-5 lg:mb-8 space-y-1.5 lg:space-y-2 text-left list-disc list-inside leading-relaxed">
           {service.features.map((line) => (
             <li key={line}>{line}</li>
           ))}
@@ -252,7 +265,7 @@ function ServiceCard({
 
       <Button
         variant="outline"
-        className={`w-full rounded-full h-12 font-medium transition-all duration-300 ${
+        className={`w-full rounded-full h-11 lg:h-12 font-medium transition-all duration-300 ${
           service.popular
             ? "border-[#3DB7F4] text-[#3DB7F4] hover:bg-[#3DB7F4] hover:text-white bg-transparent"
             : "border-gray-300 text-black hover:border-[#3DB7F4] hover:text-[#3DB7F4] bg-transparent"
@@ -263,6 +276,92 @@ function ServiceCard({
         </a>
       </Button>
     </div>
+  );
+}
+
+function ServiceCardsList({
+  services,
+  gridClassName,
+  visibleIds,
+}: {
+  services: ServiceItem[];
+  gridClassName: string;
+  visibleIds: string[];
+}) {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const onCarouselSelect = useCallback(() => {
+    if (!carouselApi) return;
+    setActiveSlide(carouselApi.selectedScrollSnap());
+  }, [carouselApi]);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    onCarouselSelect();
+    carouselApi.on("select", onCarouselSelect);
+    return () => {
+      carouselApi.off("select", onCarouselSelect);
+    };
+  }, [carouselApi, onCarouselSelect]);
+
+  return (
+    <>
+      <div className={cn("hidden lg:grid", gridClassName)}>
+        {services.map((service, index) => (
+          <ServiceCard
+            key={service.id}
+            service={service}
+            visible={visibleIds.includes(service.id)}
+            delayMs={index * 150}
+          />
+        ))}
+      </div>
+
+      <div className="lg:hidden">
+        <Carousel
+          setApi={setCarouselApi}
+          opts={{ align: "center", loop: false }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-2">
+            {services.map((service, index) => (
+              <CarouselItem
+                key={service.id}
+                className="pl-2 basis-[92%] sm:basis-[85%] md:basis-[70%]"
+              >
+                <ServiceCard
+                  service={service}
+                  visible={visibleIds.includes(service.id)}
+                  delayMs={index * 150}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <CarouselPrevious className="static translate-y-0 left-auto top-auto" />
+            <div className="flex gap-2">
+              {services.map((service, i) => (
+                <button
+                  key={service.id}
+                  type="button"
+                  aria-label={service.title}
+                  onClick={() => carouselApi?.scrollTo(i)}
+                  className={cn(
+                    "h-2 rounded-full transition-all",
+                    activeSlide === i ? "w-6 bg-[#3DB7F4]" : "w-2 bg-gray-300",
+                  )}
+                />
+              ))}
+            </div>
+            <CarouselNext className="static translate-y-0 right-auto top-auto" />
+          </div>
+          <p className="text-center text-sm text-gray-500 mt-2">
+            {services[activeSlide]?.title}
+          </p>
+        </Carousel>
+      </div>
+    </>
   );
 }
 
@@ -295,11 +394,11 @@ export function Service() {
     <section
       id="pricing"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden bg-white"
+      className="relative py-16 sm:py-20 md:py-28 lg:py-32 overflow-hidden bg-white"
     >
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4 md:mb-6">
             Наши услуги и цены
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
@@ -307,19 +406,14 @@ export function Service() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 max-w-8xl mx-auto">
-          {webServices.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              visible={visibleIds.includes(service.id)}
-              delayMs={index * 150}
-            />
-          ))}
-        </div>
+        <ServiceCardsList
+          services={webServices}
+          gridClassName="sm:grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 max-w-8xl mx-auto"
+          visibleIds={visibleIds}
+        />
 
-        <div className="mt-20 md:mt-28 pt-16 md:pt-20 border-t border-gray-200">
-          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <div className="mt-12 sm:mt-16 md:mt-24 lg:mt-28 pt-10 sm:pt-12 md:pt-16 lg:pt-20 border-t border-gray-200">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-4">
               Настройка Bitrix24
             </h3>
@@ -329,33 +423,25 @@ export function Service() {
             </p>
           </div>
 
-          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">
+          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 md:mb-6">
             Пакетная настройка
           </p>
-          <div className="grid sm:grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 lg:gap-8 max-w-6xl mx-auto mb-14">
-            {bitrixPackages.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                visible={visibleIds.includes(service.id)}
-                delayMs={index * 150}
-              />
-            ))}
+          <div className="mb-8 md:mb-14">
+            <ServiceCardsList
+              services={bitrixPackages}
+              gridClassName="sm:grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 lg:gap-8 max-w-6xl mx-auto"
+              visibleIds={visibleIds}
+            />
           </div>
 
-          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">
+          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 md:mb-6">
             Отдельные блоки
           </p>
-          <div className="grid sm:grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 lg:gap-8 max-w-6xl mx-auto">
-            {bitrixAddons.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                visible={visibleIds.includes(service.id)}
-                delayMs={index * 150}
-              />
-            ))}
-          </div>
+          <ServiceCardsList
+            services={bitrixAddons}
+            gridClassName="sm:grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 lg:gap-8 max-w-6xl mx-auto"
+            visibleIds={visibleIds}
+          />
         </div>
       </div>
     </section>
