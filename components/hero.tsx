@@ -165,17 +165,16 @@ export function Hero() {
 
                 <div className="mt-8 pt-6 border-t border-[#e8eef1]">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
-                      <Image
+                   <Link href="#bitrix-licenses" className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
+                   <Image
                         src="/photo_2026-05-19_03-59-16.jpg"
                         alt="Автоматизированный колл-центр и электронный документооборот"
                         fill
                         className="object-contain object-center scale-[1.18] origin-center"
                         sizes="(max-width: 640px) 60vw, 280px"
-                      />
-                    </div>
+                      /></Link>
                     <Link
-                      href="#bitrix-licenses"
+                      href="#bitrix-license"
                       className="group relative block aspect-[3/2] w-full rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
                     >
                       <Image
