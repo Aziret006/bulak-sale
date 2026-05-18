@@ -36,15 +36,36 @@ type ServiceItem = {
   showPriceFrom?: boolean;
   /** текст перед суммой, напр. «до » для телефонии */
   pricePrefix?: string;
+  /** старая цена до скидки (зачёркнутая) */
+  originalPrice?: string;
+  /** процент скидки, напр. 20 */
+  discountPercent?: number;
+  /** срок действия акции, напр. «только в мае» */
+  promoPeriod?: string;
 };
 
+function parsePrice(value: string): number {
+  return Number.parseInt(value.replace(/\s/g, ""), 10);
+}
+
+function formatPrice(value: number): string {
+  return value.toLocaleString("ru-RU");
+}
+
+function applyDiscount(original: string, percent: number): string {
+  const discounted = Math.round(parsePrice(original) * (1 - percent / 100));
+  return formatPrice(discounted);
+}
 
 const bitrixPackages: ServiceItem[] = [
   {
     id: "bitrix-basic",
     icon: Settings2,
     title: "Битрикс24 — Базовый",
-    price: "59 900",
+    originalPrice: "65 000",
+    price: applyDiscount("65 000 ", 5),
+    discountPercent: 5,
+    promoPeriod: "только в мае",
     currency: "сом",
     duration: "Срок: по договорённости",
     showPriceFrom: false,
@@ -60,7 +81,10 @@ const bitrixPackages: ServiceItem[] = [
     id: "bitrix-standard",
     icon: Settings2,
     title: "Битрикс24 — Стандартный",
-    price: "104 900",
+    originalPrice: "104 900",
+    price: applyDiscount("104 900",5),
+    discountPercent: 5,
+    promoPeriod: "только в мае",
     currency: "сом",
     duration: "Срок: по договорённости",
     showPriceFrom: false,
@@ -78,7 +102,10 @@ const bitrixPackages: ServiceItem[] = [
     id: "bitrix-pro",
     icon: Settings2,
     title: "Битрикс24 — Профессиональный",
-    price: "154 900",
+    originalPrice: "154 900",
+    price: applyDiscount("154 900", 5),
+    discountPercent: 5,
+    promoPeriod: "только в мае",
     currency: "сом",
     duration: "Срок: по договорённости",
     showPriceFrom: false,
@@ -240,16 +267,55 @@ function ServiceCard({
       </h3>
 
       <div className="text-center mb-3 lg:mb-4">
-        {showFrom && <span className="text-gray-500 text-sm">от </span>}
-        {service.pricePrefix && (
-          <span className="text-gray-500 text-sm">{service.pricePrefix}</span>
+        {service.originalPrice && service.discountPercent ? (
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {showFrom && (
+                <span className="text-gray-500 text-sm basis-full">от </span>
+              )}
+              <span className="relative inline-block text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3DB7F4]/75 leading-none tracking-tight">
+                {service.originalPrice}
+                <span
+                  className="absolute left-[-3%] right-[-3%] top-1/2 h-[3px] sm:h-1 bg-[#3DB7F4] -translate-y-1/2 rounded-full pointer-events-none"
+                  aria-hidden
+                />
+              </span>
+              <span className="text-gray-600 text-base lg:text-lg">{service.currency}</span>
+              <span className="rounded-full bg-[#3DB7F4] text-white text-xs font-semibold px-2.5 py-0.5">
+                −{service.discountPercent}%
+              </span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              {service.pricePrefix && (
+                <span className="text-gray-500 text-sm">{service.pricePrefix}</span>
+              )}
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black leading-none">
+                {service.price}
+              </span>
+              <span className="text-gray-600 text-base lg:text-lg font-medium">
+                {service.currency}
+              </span>
+            </div>
+            {service.promoPeriod && (
+              <p className="text-xs sm:text-sm text-[#3DB7F4] font-medium pt-0.5">
+                Действует {service.promoPeriod}
+              </p>
+            )}
+          </div>
+        ) : (
+          <>
+            {showFrom && <span className="text-gray-500 text-sm">от </span>}
+            {service.pricePrefix && (
+              <span className="text-gray-500 text-sm">{service.pricePrefix}</span>
+            )}
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3DB7F4]">
+              {service.price}
+            </span>
+            <span className="text-gray-600 text-base lg:text-lg ml-1.5 lg:ml-2">
+              {service.currency}
+            </span>
+          </>
         )}
-        <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3DB7F4]">
-          {service.price}
-        </span>
-        <span className="text-gray-600 text-base lg:text-lg ml-1.5 lg:ml-2">
-          {service.currency}
-        </span>
       </div>
 
       <p className="text-center text-gray-500 text-sm mb-4 lg:mb-6">{service.duration}</p>
@@ -420,8 +486,11 @@ function Service() {
             </p>
           </div>
 
-          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 md:mb-6">
+          <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2 md:mb-3">
             Пакетная настройка
+          </p>
+          <p className="text-center text-sm text-[#3DB7F4] font-medium mb-4 md:mb-6">
+            Скидка действует только в мае
           </p>
           <div className="mb-8 md:mb-14">
             <ServiceCardsList
