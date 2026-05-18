@@ -38,58 +38,7 @@ type ServiceItem = {
   pricePrefix?: string;
 };
 
-const webServices: ServiceItem[] = [
-  {
-    id: "marketing",
-    icon: Smartphone,
-    title: "Маркетинг и продвижение",
-    price: "850",
-    currency: "USD",
-    duration: "Срок: от 2 недель",
-    description:
-      "Маркетинговое продвижение через социальные сети и поиски в поиске Gaze.kg",
-    features: [
-      "Контент: 25 публикаций и 4 сторис ежедневно",
-      "Таргет: постоянные тесты рекламных гипотез",
-      "Съёмки: 2 выезда в неделю",
-      "Стратегия: анализ ЦА и конкурентов на старте",
-    ],
-  },
-  {
-    id: "landing",
-    icon: FileText,
-    title: "Одностраничный Сайт",
-    price: "100",
-    currency: "USD",
-    duration: "Срок: от 10 дней",
-    description:
-      "Продающая лендинг-страница с формой обратной связи и интеграцией с мессенджерами.",
-  },
-  {
-    id: "corporate",
-    icon: LayoutGrid,
-    title: "Корпоративный Сайт",
-    price: "300",
-    currency: "USD",
-    duration: "Срок: от 15 дней",
-    description:
-      "Многостраничный сайт с админ-панелью, каталогом товаров/услуг и системой управления контентом.",
-    popular: true,
-  },
-  {
-    id: "mobile",
-    icon: Smartphone,
-    title: "Мобильное Приложение",
-    price: "500",
-    currency: "USD",
-    duration: "Срок: 8-12 недель",
-    description:
-      "Нативное мобильное приложение для iOS и Android с синхронизацией данных и push-уведомлениями.",
-  },
 
-];
-
-/** Пакеты настройки Bitrix24 — гибкая модель внедрения (аналог типовых пакетов на рынке). */
 const bitrixPackages: ServiceItem[] = [
   {
     id: "bitrix-basic",
@@ -193,6 +142,60 @@ const bitrixAddons: ServiceItem[] = [
     ],
   },
 ];
+
+const webServices: ServiceItem[] = [
+  {
+    id: "marketing",
+    icon: Smartphone,
+    title: "Маркетинг и продвижение",
+    price: "850",
+    currency: "USD",
+    duration: "Срок: от 2 недель",
+    description:
+      "Маркетинговое продвижение через социальные сети и поиски в поиске Gaze.kg",
+    features: [
+      "Контент: 25 публикаций и 4 сторис ежедневно",
+      "Таргет: постоянные тесты рекламных гипотез",
+      "Съёмки: 2 выезда в неделю",
+      "Стратегия: анализ ЦА и конкурентов на старте",
+    ],
+  },
+  {
+    id: "landing",
+    icon: FileText,
+    title: "Одностраничный Сайт",
+    price: "100",
+    currency: "USD",
+    duration: "Срок: от 10 дней",
+    description:
+      "Продающая лендинг-страница с формой обратной связи и интеграцией с мессенджерами.",
+  },
+  {
+    id: "corporate",
+    icon: LayoutGrid,
+    title: "Корпоративный Сайт",
+    price: "300",
+    currency: "USD",
+    duration: "Срок: от 15 дней",
+    description:
+      "Многостраничный сайт с админ-панелью, каталогом товаров/услуг и системой управления контентом.",
+    popular: true,
+  },
+  {
+    id: "mobile",
+    icon: Smartphone,
+    title: "Мобильное Приложение",
+    price: "500",
+    currency: "USD",
+    duration: "Срок: 8-12 недель",
+    description:
+      "Нативное мобильное приложение для iOS и Android с синхронизацией данных и push-уведомлениями.",
+  },
+
+];
+
+/** Пакеты настройки Bitrix24 — гибкая модель внедрения (аналог типовых пакетов на рынке). */
+
 
 function ServiceCard({
   service,
