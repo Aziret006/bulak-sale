@@ -167,7 +167,7 @@ export function Hero() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="relative aspect-[5/3] w-full rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
                       <Image
-                        src="/iconss.PNG"
+                        src="/dfgdgf.PNG"
                         alt="Автоматизированный колл-центр и электронный документооборот"
                         fill
                         className="object-cover object-center"

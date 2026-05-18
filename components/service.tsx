@@ -368,7 +368,7 @@ function ServiceCardsList({
   );
 }
 
-export function Service() {
+function Service() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visibleIds, setVisibleIds] = useState<string[]>([]);
 
@@ -400,22 +400,16 @@ export function Service() {
       className="relative py-16 sm:py-20 md:py-28 lg:py-32 overflow-hidden bg-white"
     >
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+        {/* <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4 md:mb-6">
             Наши услуги и цены
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             Выберите подходящее решение для вашего бизнеса
           </p>
-        </div>
+        </div> */}
 
-        <ServiceCardsList
-          services={webServices}
-          gridClassName="sm:grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 max-w-8xl mx-auto"
-          visibleIds={visibleIds}
-        />
-
-        <div id="bitrix-licenses" className="mt-12 sm:mt-16 md:mt-24 lg:mt-28 pt-10 sm:pt-12 md:pt-16 lg:pt-20 border-t border-gray-200">
+        <div id="bitrix-licenses">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-4">
               Настройка Bitrix24
@@ -446,7 +440,25 @@ export function Service() {
             visibleIds={visibleIds}
           />
         </div>
+
+        <div className="mt-12 sm:mt-16 md:mt-24 lg:mt-28 pt-10 sm:pt-12 md:pt-16 lg:pt-20 border-t border-gray-200">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-4">
+              Веб-разработка и маркетинг
+            </h3>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Сайты, приложения и продвижение под ключ
+            </p>
+          </div>
+          <ServiceCardsList
+            services={webServices}
+            gridClassName="sm:grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 max-w-8xl mx-auto"
+            visibleIds={visibleIds}
+          />
+        </div>
       </div>
     </section>
   );
 }
+
+export { Service };
