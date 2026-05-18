@@ -165,29 +165,15 @@ export function Hero() {
 
                 <div className="mt-8 pt-6 border-t border-[#e8eef1]">
                   <div className="grid sm:grid-cols-2 gap-4 items-stretch">
-                    <div className="flex flex-col min-w-0 rounded-2xl bg-[#f8fbfc] p-4 border border-[#e8eef1]/80">
-                      <div className="flex items-center justify-between mb-4 gap-2">
-                        <span className="text-sm font-medium text-[#3d4f5f] leading-snug">
-                          Рост конверсии после внедрения
-                        </span>
-                        <span className="text-sm font-bold text-[#3DB7F4] shrink-0">
-                          +47%
-                        </span>
-                      </div>
-                      <div className="h-24 flex items-end gap-1.5 flex-1">
-                        {[35, 42, 38, 55, 62, 58, 75, 82].map((height, index) => (
-                          <div
-                            key={index}
-                            className="flex-1 bg-gradient-to-t from-[#3DB7F4] to-[#8ad4ed] rounded-t-md transition-all duration-700"
-                            style={{
-                              height: isVisible ? `${height}%` : "0%",
-                              transitionDelay: `${1000 + index * 100}ms`,
-                            }}
-                          />
-                        ))}
-                      </div>
+                    <div className="relative min-h-[148px] rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
+                      <Image
+                        src="/iconss.PNG"
+                        alt="Автоматизированный колл-центр и электронный документооборот"
+                        fill
+                        className="object-contain object-center p-2"
+                        sizes="(max-width: 640px) 100vw, 280px"
+                      />
                     </div>
-
                     <Link
                       href="#bitrix-licenses"
                       className="group relative block min-h-[148px] rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
