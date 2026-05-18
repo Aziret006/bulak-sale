@@ -171,7 +171,7 @@ export function Hero() {
                         alt="Автоматизированный колл-центр и электронный документооборот"
                         fill
                         className="object-contain object-center scale-[1.18] origin-center"
-                        sizes="(max-width: 640px) 50vw, 280px"
+                        sizes="(max-width: 640px) 60vw, 280px"
                       />
                     </div>
                     <Link
@@ -183,7 +183,7 @@ export function Hero() {
                         alt="Скидка 30% на Битрикс24 при покупке на год"
                         fill
                         className="object-contain object-center scale-[1.14] origin-center transition-transform duration-500 group-hover:scale-[1.2]"
-                        sizes="(max-width: 640px) 50vw, 280px"
+                        sizes="(max-width: 640px) 80vw, 280px"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#1a6fa8]/10 via-transparent to-transparent pointer-events-none" />
                     </Link>

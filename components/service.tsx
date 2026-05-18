@@ -490,7 +490,7 @@ function Service() {
             Пакетная настройка
           </p>
           <p className="text-center text-sm text-[#3DB7F4] font-medium mb-4 md:mb-6">
-            Скидка действует только в мае
+            Цена актуально до конца мая
           </p>
           <div className="mb-8 md:mb-14">
             <ServiceCardsList
