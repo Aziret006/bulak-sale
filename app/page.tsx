@@ -14,9 +14,9 @@ export default function HomePage() {
     <main className="relative mx-auto max-w-360 w-[90%]">
       <Header />
       <Hero />
+      <Service />
       <Quiz />
       <Services />
-      <Service />
       <BitrixLicense />
       <WhyUs />
       <Process />

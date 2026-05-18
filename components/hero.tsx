@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -21,7 +22,6 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-[#f8fbfc] to-[#eef7fa]">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute top-20 right-10 w-72 h-72 bg-[#3DB7F4]/10 rounded-full blur-3xl animate-pulse"
@@ -34,7 +34,6 @@ export function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#3DB7F4]/5 to-transparent rounded-full blur-3xl" />
       </div>
 
-      {/* Grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
@@ -45,7 +44,6 @@ export function Hero() {
 
       <div className="container mx-auto px-4 lg:px-8 pt-28 pb-16 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left content */}
           <div
             className={`transition-all duration-1000 ${
               isVisible
@@ -129,7 +127,6 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right content - Stats cards */}
           <div
             className={`relative transition-all duration-1000 delay-300 ${
               isVisible
@@ -138,7 +135,6 @@ export function Hero() {
             }`}
           >
             <div className="relative">
-              {/* Main card */}
               <div className="bg-white rounded-3xl p-8 shadow-2xl shadow-[#3d4f5f]/10 border border-[#e8eef1]">
                 <div className="grid grid-cols-2 gap-6">
                   <StatCard
@@ -167,43 +163,54 @@ export function Hero() {
                   />
                 </div>
 
-                {/* Chart visualization */}
                 <div className="mt-8 pt-6 border-t border-[#e8eef1]">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-medium text-[#3d4f5f]">
-                      Рост конверсии после внедрения
-                    </span>
-                    <span className="text-sm font-bold text-[#3DB7F4]">
-                      +47%
-                    </span>
-                  </div>
-                  <div className="h-24 flex items-end gap-2">
-                    {[35, 42, 38, 55, 62, 58, 75, 82].map((height, index) => (
-                      <div
-                        key={index}
-                        className="flex-1 bg-gradient-to-t from-[#3DB7F4] to-[#8ad4ed] rounded-t-lg transition-all duration-700"
-                        style={{
-                          height: isVisible ? `${height}%` : "0%",
-                          transitionDelay: `${1000 + index * 100}ms`,
-                        }}
+                  <div className="grid sm:grid-cols-2 gap-4 items-stretch">
+                    <div className="flex flex-col min-w-0 rounded-2xl bg-[#f8fbfc] p-4 border border-[#e8eef1]/80">
+                      <div className="flex items-center justify-between mb-4 gap-2">
+                        <span className="text-sm font-medium text-[#3d4f5f] leading-snug">
+                          Рост конверсии после внедрения
+                        </span>
+                        <span className="text-sm font-bold text-[#3DB7F4] shrink-0">
+                          +47%
+                        </span>
+                      </div>
+                      <div className="h-24 flex items-end gap-1.5 flex-1">
+                        {[35, 42, 38, 55, 62, 58, 75, 82].map((height, index) => (
+                          <div
+                            key={index}
+                            className="flex-1 bg-gradient-to-t from-[#3DB7F4] to-[#8ad4ed] rounded-t-md transition-all duration-700"
+                            style={{
+                              height: isVisible ? `${height}%` : "0%",
+                              transitionDelay: `${1000 + index * 100}ms`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <Link
+                      href="#bitrix-license"
+                      className="group relative block min-h-[148px] rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
+                    >
+                      <Image
+                        src="/bitriks.jpg"
+                        alt="Скидка 30% на Битрикс24 при покупке на год"
+                        fill
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                        sizes="(max-width: 640px) 100vw, 280px"
                       />
-                    ))}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a6fa8]/20 via-transparent to-transparent pointer-events-none" />
+                    </Link>
                   </div>
                 </div>
               </div>
 
-              {/* Floating badge */}
-              <div
-                className="absolute -top-4 -right-4 bg-[#3DB7F4] text-white rounded-2xl px-5 py-3 shadow-lg shadow-[#3DB7F4]/30 animate-float"
-              >
+              <div className="absolute -top-4 -right-4 bg-[#3DB7F4] text-white rounded-2xl px-5 py-3 shadow-lg shadow-[#3DB7F4]/30 animate-float">
                 <div className="text-2xl font-bold">24/7</div>
                 <div className="text-xs opacity-90">Поддержка</div>
               </div>
 
-              {/* Floating element left */}
-              <div
-                className="absolute -left-6 top-1/2 -translate-y-1/2 bg-white rounded-xl p-4 shadow-lg border border-[#e8eef1] hidden md:block animate-float-delayed"
-              >
+              <div className="absolute -left-6 top-1/2 -translate-y-1/2 bg-white rounded-xl p-4 shadow-lg border border-[#e8eef1] hidden md:block animate-float-delayed">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                     <CheckCircle2 className="w-5 h-5 text-green-600" />

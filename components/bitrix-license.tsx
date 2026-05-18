@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Flame, ThumbsUp } from "lucide-react";
+import { Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,27 +28,28 @@ type PlanTheme = {
   surface: string;
   button: string;
   buttonHover: string;
-  bar: string;
-  ring?: string;
+  toggle: string;
+  crmBadge: string;
 };
 
 type Plan = {
   id: string;
   name: string;
+  tagline?: string;
   theme: PlanTheme;
   users: string;
-  usersIcon?: "unlimited" | "popular";
+  usersIcon?: "popular";
   storage: string;
-  monthlyPrice: number | null;
-  yearlyPrice: number | null;
-  priceLabel?: string;
-  learnMore?: boolean;
+  monthlyPrice: number;
+  yearlyPrice: number;
   popular?: boolean;
   cta: string;
   enterpriseTier?: boolean;
+  links?: { label: string; href: string }[];
 };
 
 const CURRENCY = "сом";
+const WHATSAPP_URL = "https://wa.me/996222233002";
 
 const enterpriseTiers = [
   { users: 250, storage: "3 ТБ", monthly: 37_400, yearly: 26_180 },
@@ -58,35 +59,17 @@ const enterpriseTiers = [
 
 const plans: Plan[] = [
   {
-    id: "free",
-    name: "Бесплатный",
-    theme: {
-      header: "bg-[#6BCB77]",
-      headerText: "text-white",
-      surface: "bg-[#F0FAF2]",
-      button: "bg-[#6BCB77]",
-      buttonHover: "hover:bg-[#5ab868]",
-      bar: "bg-[#6BCB77]",
-    },
-    users: "Неограниченно",
-    usersIcon: "unlimited",
-    storage: "5 ГБ",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    priceLabel: "Бесплатно",
-    learnMore: true,
-    cta: "Создать",
-  },
-  {
     id: "basic",
     name: "Базовый",
+    tagline: "CRM для небольших отделов продаж",
     theme: {
-      header: "bg-[#A8D8F0]",
+      header: "bg-[#D4EDFC]",
       headerText: "text-[#1a4d6d]",
-      surface: "bg-[#F3FAFE]",
-      button: "bg-[#7EC8E8]",
-      buttonHover: "hover:bg-[#6ab8dc]",
-      bar: "bg-[#7EC8E8]",
+      surface: "bg-[#EDF7FE]",
+      button: "bg-[#6EC4F0]",
+      buttonHover: "hover:bg-[#5ab8e8]",
+      toggle: "bg-[#7EC8E8]",
+      crmBadge: "bg-[#6EC4F0]",
     },
     users: "5 пользователей",
     storage: "24 ГБ",
@@ -97,13 +80,15 @@ const plans: Plan[] = [
   {
     id: "standard",
     name: "Стандартный",
+    tagline: "Для совместной работы всей компании или рабочих групп",
     theme: {
-      header: "bg-[#5BC0EB]",
-      headerText: "text-white",
-      surface: "bg-[#EFF8FD]",
+      header: "bg-[#B8E4FA]",
+      headerText: "text-[#134d6e]",
+      surface: "bg-[#E8F5FD]",
       button: "bg-[#3DB7F4]",
       buttonHover: "hover:bg-[#2da8e8]",
-      bar: "bg-[#3DB7F4]",
+      toggle: "bg-[#3DB7F4]",
+      crmBadge: "bg-[#3DB7F4]",
     },
     users: "50 пользователей",
     storage: "100 ГБ",
@@ -114,14 +99,15 @@ const plans: Plan[] = [
   {
     id: "professional",
     name: "Профессиональный",
+    tagline: "Для максимальной автоматизации всех процессов в компании",
     theme: {
-      header: "bg-[#1E88C9]",
-      headerText: "text-white",
-      surface: "bg-[#E8F4FC]",
-      button: "bg-[#1577B8]",
-      buttonHover: "hover:bg-[#1269a3]",
-      bar: "bg-[#1577B8]",
-      ring: "ring-[#3DB7F4]",
+      header: "bg-[#8FD0F5]",
+      headerText: "text-[#0f3d5c]",
+      surface: "bg-[#E3F3FC]",
+      button: "bg-[#1E88C9]",
+      buttonHover: "hover:bg-[#1577b8]",
+      toggle: "bg-[#1E88C9]",
+      crmBadge: "bg-[#3DB7F4]",
     },
     users: "100 пользователей",
     usersIcon: "popular",
@@ -135,12 +121,13 @@ const plans: Plan[] = [
     id: "enterprise",
     name: "Энтерпрайз",
     theme: {
-      header: "bg-[#9B7EDE]",
-      headerText: "text-white",
-      surface: "bg-[#F5F0FC]",
-      button: "bg-[#8B6FD4]",
-      buttonHover: "hover:bg-[#7a5fc4]",
-      bar: "bg-[#8B6FD4]",
+      header: "bg-[#C9B8E8]",
+      headerText: "text-[#3d2d66]",
+      surface: "bg-[#F0EBFA]",
+      button: "bg-[#9B7EDE]",
+      buttonHover: "hover:bg-[#8a6dce]",
+      toggle: "bg-[#9B7EDE]",
+      crmBadge: "bg-[#9B7EDE]",
     },
     users: "250 пользователей",
     storage: "3 ТБ",
@@ -148,60 +135,57 @@ const plans: Plan[] = [
     yearlyPrice: 26_180,
     enterpriseTier: true,
     cta: "Купить",
+    links: [
+      { label: "Почему Битрикс24 Энтерпрайз?", href: WHATSAPP_URL },
+      { label: "Энтерпрайз Холдинг", href: WHATSAPP_URL },
+    ],
   },
 ];
 
-const featureMatrix: { name: string; levels: number[]; badge?: string }[] = [
-  { name: "Совместная работа", levels: [3, 4, 5, 5, 5] },
-  { name: "Мессенджер", levels: [4, 5, 5, 5, 5] },
-  { name: "Коллабы", levels: [2, 3, 4, 5, 5] },
-  { name: "Задачи и Проекты", levels: [3, 4, 5, 5, 5] },
-  { name: "CRM", levels: [2, 4, 5, 5, 5], badge: "CRM №1" },
-  { name: "BitrixGPT", levels: [1, 2, 3, 4, 5] },
-  { name: "Онлайн-подпись", levels: [1, 2, 3, 4, 5] },
-  { name: "Диск", levels: [3, 4, 5, 5, 5] },
-  { name: "Доски", levels: [2, 3, 4, 5, 5] },
-  { name: "Контакт-центр", levels: [1, 2, 3, 4, 5] },
-  { name: "Сайты", levels: [2, 3, 4, 5, 5] },
-  { name: "Интернет-магазин", levels: [0, 1, 2, 4, 5] },
-  { name: "Онлайн-запись", levels: [0, 1, 3, 4, 5] },
-  { name: "Маркетинг", levels: [0, 2, 3, 5, 5] },
-  { name: "Документы Онлайн", levels: [0, 1, 3, 4, 5] },
-  { name: "КЭДО + Госключ", levels: [0, 0, 2, 3, 5] },
-  { name: "BI Конструктор", levels: [0, 0, 2, 4, 5] },
-  { name: "Поддержка", levels: [1, 2, 3, 4, 5] },
-  { name: "Администрирование", levels: [1, 2, 3, 4, 5] },
-  { name: "Сквозная аналитика", levels: [0, 0, 2, 4, 5] },
-  { name: "Автоматизация", levels: [0, 1, 3, 5, 5] },
-  { name: "HR: Компания", levels: [0, 0, 1, 3, 5] },
-  { name: "Филиалы", levels: [0, 0, 0, 2, 5] },
-  { name: "Энтерпрайз-кластер", levels: [0, 0, 0, 0, 5] },
-  { name: "Энтерпрайз-пакет", levels: [0, 0, 0, 0, 5] },
+const planFeatures: {
+  name: string;
+  minPlan: number;
+  crmBadgeFrom?: number;
+}[] = [
+  { name: "Совместная работа", minPlan: 0 },
+  { name: "Мессенджер", minPlan: 0 },
+  { name: "Коллабы", minPlan: 0 },
+  { name: "Задачи и Проекты", minPlan: 0 },
+  { name: "CRM", minPlan: 0, crmBadgeFrom: 2 },
+  { name: "BitrixGPT", minPlan: 0 },
+  { name: "Онлайн-подпись", minPlan: 0 },
+  { name: "Диск", minPlan: 0 },
+  { name: "Доски", minPlan: 0 },
+  { name: "Контакт-центр", minPlan: 0 },
+  { name: "Сайты", minPlan: 0 },
+  { name: "Интернет-магазин", minPlan: 1 },
+  { name: "Онлайн-запись", minPlan: 1 },
+  { name: "Поддержка", minPlan: 1 },
+  { name: "Маркетинг", minPlan: 2 },
+  { name: "Документы Онлайн", minPlan: 2 },
+  { name: "КЭДО + Госключ", minPlan: 2 },
+  { name: "BI Конструктор", minPlan: 2 },
+  { name: "Администрирование", minPlan: 2 },
+  { name: "Сквозная аналитика", minPlan: 2 },
+  { name: "Автоматизация", minPlan: 2 },
+  { name: "HR: Компания", minPlan: 2 },
+  { name: "Филиалы", minPlan: 3 },
+  { name: "Энтерпрайз-кластер", minPlan: 3 },
+  { name: "Энтерпрайз-пакет", minPlan: 3 },
 ];
-
-const WHATSAPP_URL = "https://wa.me/996222233002";
 
 function formatSom(value: number) {
   return value.toLocaleString("ru-RU");
 }
 
-function StrengthBars({ level, barClass }: { level: number; barClass: string }) {
-  if (level === 0) {
-    return <span className="text-gray-300 text-xs">—</span>;
-  }
+function FeatureToggle({ trackClass }: { trackClass: string }) {
   return (
-    <div className="flex items-end justify-center gap-[3px] h-5" aria-hidden>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <span
-          key={i}
-          className={cn(
-            "w-[5px] rounded-[2px] transition-all",
-            i <= level ? barClass : "bg-gray-200/90",
-          )}
-          style={{ height: i <= level ? 4 + i * 2.5 : 4 }}
-        />
-      ))}
-    </div>
+    <span
+      className={cn("relative inline-flex h-5 w-9 shrink-0 rounded-full", trackClass)}
+      aria-hidden
+    >
+      <span className="absolute right-0.5 top-0.5 size-4 rounded-full bg-white shadow-sm" />
+    </span>
   );
 }
 
@@ -214,7 +198,7 @@ function BillingToggle({
 }) {
   return (
     <div
-      className="inline-flex items-center p-1 rounded-full bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+      className="inline-flex items-center p-1 rounded-full bg-white border border-gray-200 shadow-sm"
       role="tablist"
     >
       <button
@@ -223,10 +207,8 @@ function BillingToggle({
         aria-selected={billing === "month"}
         onClick={() => onChange("month")}
         className={cn(
-          "px-4 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200",
-          billing === "month"
-            ? "bg-gray-100 text-gray-900 shadow-inner"
-            : "text-gray-500 hover:text-gray-700",
+          "px-5 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all",
+          billing === "month" ? "bg-gray-100 text-gray-900" : "text-gray-500",
         )}
       >
         Купить на месяц
@@ -237,38 +219,67 @@ function BillingToggle({
         aria-selected={billing === "year"}
         onClick={() => onChange("year")}
         className={cn(
-          "px-4 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1.5",
-          billing === "year"
-            ? "bg-[#3DB7F4] text-white shadow-md"
-            : "text-gray-500 hover:text-gray-700",
+          "px-5 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all",
+          billing === "year" ? "bg-[#3DB7F4] text-white shadow-md" : "text-gray-500",
         )}
       >
-        Купить на год
-        <span
-          className={cn(
-            "font-bold text-xs px-1.5 py-0.5 rounded",
-            billing === "year" ? "bg-white/25" : "text-[#3DB7F4]",
-          )}
-        >
-          −30%
-        </span>
+        Купить на год <span className="font-bold">−30%</span>
       </button>
     </div>
   );
 }
 
-function PlanColumn({
+function PriceBlock({
+  monthly,
+  yearly,
+  billing,
+}: {
+  monthly: number;
+  yearly: number;
+  billing: BillingPeriod;
+}) {
+  const isYearly = billing === "year";
+  const displayPrice = isYearly ? yearly : monthly;
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[118px]">
+      <div className="h-5 flex items-center justify-center gap-2 mb-1">
+        {isYearly ? (
+          <>
+            <span className="text-xs text-gray-400 line-through whitespace-nowrap">
+              {formatSom(monthly)} {CURRENCY}
+            </span>
+            <span className="text-[10px] font-bold text-white bg-[#FF8C42] rounded px-1.5 py-0.5 whitespace-nowrap">
+              −30%
+            </span>
+          </>
+        ) : (
+          <span className="invisible text-xs">—</span>
+        )}
+      </div>
+      <p className="text-[32px] font-bold text-gray-900 leading-none tracking-tight">
+        {formatSom(displayPrice)}
+      </p>
+      <p className="text-sm font-medium text-gray-600 mt-1">{CURRENCY}</p>
+      <p className="text-[11px] text-gray-500 mt-2 text-center leading-snug px-1">
+        в месяц за всех пользователей
+      </p>
+    </div>
+  );
+}
+
+function PlanTopSection({
   plan,
   billing,
   enterpriseUsers,
   onEnterpriseUsersChange,
-  className,
+  columnIndex,
 }: {
   plan: Plan;
   billing: BillingPeriod;
   enterpriseUsers: number;
   onEnterpriseUsersChange: (v: number) => void;
-  className?: string;
+  columnIndex: number;
 }) {
   const tier =
     plan.enterpriseTier && enterpriseTiers.find((t) => t.users === enterpriseUsers);
@@ -276,173 +287,179 @@ function PlanColumn({
   const yearly = tier?.yearly ?? plan.yearlyPrice;
   const storage = tier?.storage ?? plan.storage;
   const usersLabel = tier ? `${tier.users} пользователей` : plan.users;
-  const isYearly = billing === "year";
-  const displayPrice = isYearly ? yearly : monthly;
-  const strikePrice = isYearly ? monthly : null;
+  const isFirst = columnIndex === 0;
+  const isLast = columnIndex === 3;
 
   return (
-    <div
-      className={cn(
-        "flex flex-col min-w-0 h-full",
-        plan.popular && "relative z-10 lg:-mt-2 lg:mb-[-8px]",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-col text-center", plan.popular && "relative z-10")}>
       {plan.popular && (
-        <div className="flex justify-center mb-1 lg:mb-2">
-          <span className="bg-[#3DB7F4] text-white text-[11px] font-semibold tracking-wide uppercase px-4 py-1 rounded-full shadow-sm">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-full flex justify-center">
+          <span className="bg-[#3DB7F4] text-white text-[11px] font-semibold px-4 py-1 rounded-full shadow">
             Популярный
           </span>
         </div>
       )}
 
+      {/* Шапка: название + описание — одинаковая высота */}
       <div
         className={cn(
-          "flex flex-col flex-1 rounded-t-[20px] overflow-hidden",
-          plan.popular && "ring-2 ring-[#3DB7F4] shadow-xl shadow-[#3DB7F4]/15",
+          "px-3 pt-5 pb-3",
+          plan.theme.header,
+          plan.theme.headerText,
+          isFirst && "rounded-tl-2xl",
+          isLast && "rounded-tr-2xl",
         )}
       >
-        <div
+        <h3 className="text-base font-bold mb-2">{plan.name}</h3>
+        <div className="min-h-[48px] flex items-center justify-center">
+          {plan.links ? (
+            <div className="flex flex-col gap-1 text-[11px] leading-snug">
+              {plan.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#3DB7F4] hover:underline underline-offset-2"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[11px] leading-snug opacity-90 px-1">{plan.tagline}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Пользователи и диск */}
+      <div className={cn("px-3 py-3 min-h-[76px] flex flex-col justify-center", plan.theme.surface)}>
+        <div className="flex items-center justify-center gap-1 mb-1">
+          {plan.usersIcon === "popular" && (
+            <Flame className="w-4 h-4 text-orange-500 shrink-0 fill-orange-400" />
+          )}
+          {plan.enterpriseTier ? (
+            <Select
+              value={String(enterpriseUsers)}
+              onValueChange={(v) => onEnterpriseUsersChange(Number(v))}
+            >
+              <SelectTrigger className="h-8 text-xs border-violet-200/80 bg-white w-full max-w-[175px] mx-auto">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {enterpriseTiers.map((t) => (
+                  <SelectItem key={t.users} value={String(t.users)}>
+                    {t.users} пользователей
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <p className="text-sm font-semibold text-gray-800">{usersLabel}</p>
+          )}
+        </div>
+        <p className="text-xs text-gray-500 mt-1">
+          <span className="font-medium text-gray-700">{storage}</span> диск
+        </p>
+      </div>
+
+      {/* Цена — одинаковая высота во всех колонках */}
+      <div className={cn("px-3 pt-2 pb-3", plan.theme.surface, plan.popular && "ring-2 ring-inset ring-[#3DB7F4]")}>
+        <PriceBlock monthly={monthly} yearly={yearly} billing={billing} />
+        <Button
+          asChild
           className={cn(
-            "px-3 py-4 text-center min-h-[56px] flex items-center justify-center",
-            plan.theme.header,
-            plan.theme.headerText,
+            "w-full rounded-xl text-white font-semibold h-11 text-sm border-0 mt-1 shadow-sm",
+            plan.theme.button,
+            plan.theme.buttonHover,
           )}
         >
-          <h3 className="text-[15px] sm:text-base font-bold leading-tight">{plan.name}</h3>
-        </div>
-
-        <div
-          className={cn(
-            "flex flex-col flex-1 px-3 sm:px-4 py-5 text-center border-x border-b border-gray-100/80",
-            plan.theme.surface,
-            "rounded-b-[20px]",
-          )}
-        >
-          <div className="flex items-center justify-center gap-1 min-h-[32px] mb-1">
-            {plan.usersIcon === "unlimited" && (
-              <ThumbsUp className="w-4 h-4 text-[#6BCB77] shrink-0" strokeWidth={2.5} />
-            )}
-            {plan.usersIcon === "popular" && (
-              <Flame className="w-4 h-4 text-orange-500 shrink-0 fill-orange-400" />
-            )}
-            {plan.enterpriseTier ? (
-              <Select
-                value={String(enterpriseUsers)}
-                onValueChange={(v) => onEnterpriseUsersChange(Number(v))}
-              >
-                <SelectTrigger className="h-8 text-xs sm:text-sm border-violet-200/80 bg-white shadow-none px-2 w-full max-w-[180px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {enterpriseTiers.map((t) => (
-                    <SelectItem key={t.users} value={String(t.users)}>
-                      {t.users} пользователей
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
-                {usersLabel}
-              </p>
-            )}
-          </div>
-
-          <p className="text-[11px] sm:text-xs text-gray-500 mb-5">
-            на диске{" "}
-            <span className="font-medium text-gray-700">{storage}</span>
-          </p>
-
-          <div className="flex-1 flex flex-col items-center justify-center min-h-[108px] mb-5">
-            {plan.priceLabel ? (
-              <>
-                <p className="text-xl sm:text-2xl font-bold text-gray-900">{plan.priceLabel}</p>
-                {plan.learnMore && (
-                  <button
-                    type="button"
-                    className="text-xs sm:text-sm text-[#3DB7F4] mt-2 hover:underline underline-offset-2"
-                  >
-                    узнать больше
-                  </button>
-                )}
-              </>
-            ) : (
-              <>
-                {isYearly && strikePrice != null && (
-                  <p className="text-xs text-gray-400 line-through mb-1">
-                    {formatSom(strikePrice)} {CURRENCY}
-                  </p>
-                )}
-                {isYearly && (
-                  <span className="inline-flex items-center text-[10px] font-bold text-white bg-[#FF8C42] rounded-md px-2 py-0.5 mb-2">
-                    −30%
-                  </span>
-                )}
-                <p className="text-[26px] sm:text-[28px] font-bold text-gray-900 leading-none tracking-tight">
-                  {displayPrice != null ? formatSom(displayPrice) : "—"}
-                </p>
-                <p className="text-sm font-medium text-gray-600 mt-1">{CURRENCY}</p>
-                <p className="text-[10px] sm:text-[11px] text-gray-500 mt-2 leading-snug max-w-[140px]">
-                  {isYearly
-                    ? "в месяц при оплате за год за всех пользователей"
-                    : "в месяц за всех пользователей"}
-                </p>
-              </>
-            )}
-          </div>
-
-          <Button
-            asChild
-            className={cn(
-              "w-full rounded-xl text-white font-semibold h-10 sm:h-11 text-sm border-0 shadow-sm",
-              plan.theme.button,
-              plan.theme.buttonHover,
-            )}
-          >
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              {plan.cta}
-            </a>
-          </Button>
-        </div>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+            {plan.cta}
+          </a>
+        </Button>
       </div>
     </div>
   );
 }
 
-function FeatureRow({
-  name,
-  levels,
-  activePlanIndex,
-  badge,
-}: {
-  name: string;
-  levels: number[];
-  activePlanIndex: number;
-  badge?: string;
-}) {
+function AlignedFeatureGrid() {
   return (
-    <div className="grid grid-cols-[1fr_auto] lg:grid-cols-[minmax(180px,1.2fr)_repeat(5,minmax(0,1fr))] gap-3 lg:gap-2 items-center py-3 border-b border-gray-100/90 last:border-0 hover:bg-gray-50/50 transition-colors">
-      <div className="flex items-center gap-2 min-w-0 pl-1">
-        <span className="text-[13px] sm:text-sm text-gray-700">{name}</span>
-        {badge && (
-          <span className="text-[9px] font-bold text-white bg-[#3DB7F4] rounded px-1.5 py-0.5 shrink-0">
-            {badge}
-          </span>
-        )}
-      </div>
-      <div className="flex justify-end pr-1 lg:hidden">
-        <StrengthBars
-          level={levels[activePlanIndex] ?? 0}
-          barClass={plans[activePlanIndex]?.theme.bar ?? "bg-gray-400"}
-        />
-      </div>
-      {levels.map((level, i) => (
-        <div key={plans[i].id} className="hidden lg:flex justify-center">
-          <StrengthBars level={level} barClass={plans[i].theme.bar} />
-        </div>
+    <div className="grid grid-cols-4 border-t border-gray-200/60">
+      {plans.map((plan, planIndex) => (
+        <ul
+          key={plan.id}
+          className={cn(
+            "flex flex-col",
+            plan.theme.surface,
+            planIndex > 0 && "border-l border-white/80",
+          )}
+        >
+          {planFeatures.map((feature) => {
+            const included = feature.minPlan <= planIndex;
+            return (
+              <li
+                key={feature.name}
+                className={cn(
+                  "flex items-center justify-between gap-2 px-2.5 min-h-[40px] border-b border-white/50 last:border-0",
+                  !included && "invisible pointer-events-none",
+                )}
+                aria-hidden={!included}
+              >
+                <span className="text-[12px] leading-tight text-gray-700 text-left flex items-center flex-wrap gap-1 min-w-0">
+                  {feature.name}
+                  {feature.name === "CRM" &&
+                    feature.crmBadgeFrom !== undefined &&
+                    planIndex >= feature.crmBadgeFrom && (
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-0.5 text-[9px] font-bold text-white rounded px-1.5 py-px shrink-0",
+                          plan.theme.crmBadge,
+                        )}
+                      >
+                        CRM №1
+                        <span className="opacity-80 font-normal">ⓘ</span>
+                      </span>
+                    )}
+                </span>
+                <FeatureToggle trackClass={plan.theme.toggle} />
+              </li>
+            );
+          })}
+        </ul>
       ))}
     </div>
+  );
+}
+
+function MobileFeaturesList({ plan, planIndex }: { plan: Plan; planIndex: number }) {
+  const items = planFeatures.filter((f) => f.minPlan <= planIndex);
+  return (
+    <ul className={cn("px-2 pb-3 pt-1 border-t border-white/50", plan.theme.surface)}>
+      {items.map((feature) => (
+        <li
+          key={feature.name}
+          className="flex items-center justify-between gap-2 py-2.5 px-2 border-b border-white/60 last:border-0"
+        >
+          <span className="text-[12px] text-gray-700 flex items-center flex-wrap gap-1">
+            {feature.name}
+            {feature.name === "CRM" &&
+              feature.crmBadgeFrom !== undefined &&
+              planIndex >= feature.crmBadgeFrom && (
+                <span
+                  className={cn(
+                    "text-[9px] font-bold text-white rounded px-1.5 py-px",
+                    plan.theme.crmBadge,
+                  )}
+                >
+                  CRM №1
+                </span>
+              )}
+          </span>
+          <FeatureToggle trackClass={plan.theme.toggle} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -469,83 +486,56 @@ export function BitrixLicense() {
   return (
     <section
       id="bitrix-license"
-      className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-white via-[#f7fbfe] to-white"
+      className="relative py-20 md:py-28 bg-gradient-to-b from-white via-[#f7fbfe] to-white"
     >
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1280px]">
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1200px]">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3 tracking-tight">
-            Лицензии Bitrix24
-          </h2>
-          <p className="text-gray-600 text-base leading-relaxed">
-            Облачные тарифы — сравните планы и выберите подходящий для команды
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3">Лицензии Bitrix24</h2>
+          <p className="text-gray-600">Сравните тарифы и выберите подходящий план</p>
         </div>
 
         <div className="flex justify-center mb-8 sm:mb-10">
           <BillingToggle billing={billing} onChange={setBilling} />
         </div>
 
-        {/* Десктоп: единая таблица как на bitrix24 */}
-        <div className="hidden lg:block">
-          <div className="bg-white rounded-[28px] border border-gray-200/80 shadow-[0_8px_40px_rgba(61,183,244,0.08)] overflow-hidden">
-            <div className="grid grid-cols-5 gap-2 p-4 pb-0 bg-white">
-              {plans.map((plan) => (
-                <PlanColumn
-                  key={plan.id}
-                  plan={plan}
-                  billing={billing}
-                  enterpriseUsers={enterpriseUsers}
-                  onEnterpriseUsersChange={setEnterpriseUsers}
-                />
-              ))}
-            </div>
-
-            <div className="mt-2 mx-4 mb-4 rounded-2xl bg-[#FAFBFC] border border-gray-100 overflow-hidden">
-              <div className="grid grid-cols-[minmax(180px,1.2fr)_repeat(5,minmax(0,1fr))] gap-2 px-5 py-3 border-b border-gray-200/60 bg-white/80">
-                <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">
-                  Возможности
-                </span>
-                {plans.map((p) => (
-                  <span
-                    key={p.id}
-                    className="text-[11px] font-semibold text-center text-gray-500 truncate"
-                  >
-                    {p.name}
-                  </span>
-                ))}
-              </div>
-              <div className="px-4 py-1 max-h-[520px] overflow-y-auto">
-                {featureMatrix.map((feature) => (
-                  <FeatureRow
-                    key={feature.name}
-                    name={feature.name}
-                    levels={feature.levels}
-                    badge={feature.badge}
-                    activePlanIndex={0}
-                  />
-                ))}
-              </div>
-            </div>
+        {/* Десктоп */}
+        <div className="hidden lg:block rounded-2xl border border-gray-200/90 shadow-[0_4px_32px_rgba(61,183,244,0.1)] overflow-hidden bg-white">
+          <div className="grid grid-cols-4">
+            {plans.map((plan, i) => (
+              <PlanTopSection
+                key={plan.id}
+                plan={plan}
+                billing={billing}
+                enterpriseUsers={enterpriseUsers}
+                onEnterpriseUsersChange={setEnterpriseUsers}
+                columnIndex={i}
+              />
+            ))}
           </div>
+          <AlignedFeatureGrid />
         </div>
 
-        {/* Мобильный слайдер */}
+        {/* Мобильный */}
         <div className="lg:hidden">
-          <Carousel setApi={setCarouselApi} opts={{ align: "center", loop: false }} className="w-full">
-            <CarouselContent className="-ml-4">
-              {plans.map((plan) => (
-                <CarouselItem key={plan.id} className="pl-4 basis-[86%] sm:basis-[70%]">
-                  <PlanColumn
-                    plan={plan}
-                    billing={billing}
-                    enterpriseUsers={enterpriseUsers}
-                    onEnterpriseUsersChange={setEnterpriseUsers}
-                  />
+          <Carousel setApi={setCarouselApi} opts={{ align: "center", loop: false }}>
+            <CarouselContent className="-ml-3">
+              {plans.map((plan, i) => (
+                <CarouselItem key={plan.id} className="pl-3 basis-[88%] sm:basis-[72%]">
+                  <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
+                    <PlanTopSection
+                      plan={plan}
+                      billing={billing}
+                      enterpriseUsers={enterpriseUsers}
+                      onEnterpriseUsersChange={setEnterpriseUsers}
+                      columnIndex={i}
+                    />
+                    <MobileFeaturesList plan={plan} planIndex={i} />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex items-center justify-center gap-3 mt-6">
-              <CarouselPrevious className="static translate-y-0 h-9 w-9 border-gray-200" />
+            <div className="flex items-center justify-center gap-3 mt-5">
+              <CarouselPrevious className="static translate-y-0 h-9 w-9" />
               <div className="flex gap-1.5">
                 {plans.map((plan, i) => (
                   <button
@@ -554,38 +544,19 @@ export function BitrixLicense() {
                     aria-label={plan.name}
                     onClick={() => carouselApi?.scrollTo(i)}
                     className={cn(
-                      "h-1.5 rounded-full transition-all duration-300",
+                      "h-1.5 rounded-full transition-all",
                       activeSlide === i ? "w-7 bg-[#3DB7F4]" : "w-1.5 bg-gray-300",
                     )}
                   />
                 ))}
               </div>
-              <CarouselNext className="static translate-y-0 h-9 w-9 border-gray-200" />
+              <CarouselNext className="static translate-y-0 h-9 w-9" />
             </div>
           </Carousel>
-
-          <div className="mt-8 bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden">
-            <div className="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
-              <span className="text-xs font-semibold text-gray-500 uppercase">Возможности</span>
-              <span className="text-sm font-medium text-[#3DB7F4]">{plans[activeSlide]?.name}</span>
-            </div>
-            <div className="px-3 py-1 max-h-[360px] overflow-y-auto">
-              {featureMatrix.map((feature) => (
-                <FeatureRow
-                  key={feature.name}
-                  name={feature.name}
-                  levels={feature.levels}
-                  badge={feature.badge}
-                  activePlanIndex={activeSlide}
-                />
-              ))}
-            </div>
-          </div>
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-8 max-w-lg mx-auto leading-relaxed">
-          Цены указаны в сомах. Точная стоимость лицензии зависит от курса и условий поставщика.
-          Поможем подключить и настроить — напишите в WhatsApp.
+        <p className="text-center text-xs text-gray-400 mt-8 max-w-md mx-auto">
+          Цены в сомах. Поможем подключить лицензию и настроить Bitrix24 — напишите в WhatsApp.
         </p>
       </div>
     </section>
