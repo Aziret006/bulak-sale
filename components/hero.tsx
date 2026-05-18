@@ -165,27 +165,27 @@ export function Hero() {
 
                 <div className="mt-8 pt-6 border-t border-[#e8eef1]">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="relative aspect-[5/3] w-full rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
+                    <div className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden border border-[#e8eef1] bg-[#f8fbfc] shadow-md shadow-[#3d4f5f]/5">
                       <Image
                         src="/dfgdgf.PNG"
                         alt="Автоматизированный колл-центр и электронный документооборот"
                         fill
-                        className="object-cover object-center"
+                        className="object-contain object-center scale-[1.18] origin-center"
                         sizes="(max-width: 640px) 50vw, 280px"
                       />
                     </div>
                     <Link
                       href="#bitrix-licenses"
-                      className="group relative block aspect-[5/3] w-full rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
+                      className="group relative block aspect-[3/2] w-full rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
                     >
                       <Image
                         src="/bitriks.jpg"
                         alt="Скидка 30% на Битрикс24 при покупке на год"
                         fill
-                        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="object-contain object-center scale-[1.14] origin-center transition-transform duration-500 group-hover:scale-[1.2]"
                         sizes="(max-width: 640px) 50vw, 280px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a6fa8]/20 via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a6fa8]/10 via-transparent to-transparent pointer-events-none" />
                     </Link>
                   </div>
                 </div>
