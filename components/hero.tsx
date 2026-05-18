@@ -189,7 +189,7 @@ export function Hero() {
                     </div>
 
                     <Link
-                      href="#bitrix-license"
+                      href="#bitrix-licenses"
                       className="group relative block min-h-[148px] rounded-2xl overflow-hidden border border-[#e8eef1] shadow-md shadow-[#3DB7F4]/10 ring-1 ring-[#3DB7F4]/5 transition-all duration-300 hover:shadow-lg hover:shadow-[#3DB7F4]/20 hover:-translate-y-0.5"
                     >
                       <Image

@@ -415,7 +415,7 @@ export function Service() {
           visibleIds={visibleIds}
         />
 
-        <div className="mt-12 sm:mt-16 md:mt-24 lg:mt-28 pt-10 sm:pt-12 md:pt-16 lg:pt-20 border-t border-gray-200">
+        <div id="bitrix-licenses" className="mt-12 sm:mt-16 md:mt-24 lg:mt-28 pt-10 sm:pt-12 md:pt-16 lg:pt-20 border-t border-gray-200">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-4">
               Настройка Bitrix24
