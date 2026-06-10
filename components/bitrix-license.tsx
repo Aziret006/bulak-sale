@@ -61,7 +61,7 @@ const plans: Plan[] = [
   {
     id: "basic",
     name: "Базовый",
-    tagline: "CRM для небольших отделов продаж",
+    tagline: "Базовый  для 5 сотрудников 14 784 (-30%)",
     theme: {
       header: "bg-[#D4EDFC]",
       headerText: "text-[#1a4d6d]",
@@ -74,13 +74,13 @@ const plans: Plan[] = [
     users: "5 пользователей",
     storage: "24 ГБ",
     monthlyPrice: 2_750,
-    yearlyPrice: 1_925,
+    yearlyPrice: 14_784,
     cta: "Купить",
   },
   {
     id: "standard",
     name: "Стандартный",
-    tagline: "Для совместной работы всей компании или рабочих групп",
+    tagline: "Стандартный для 50 сотрудников 45 696 (-30%)",
     theme: {
       header: "bg-[#B8E4FA]",
       headerText: "text-[#134d6e]",
@@ -93,13 +93,13 @@ const plans: Plan[] = [
     users: "50 пользователей",
     storage: "100 ГБ",
     monthlyPrice: 7_700,
-    yearlyPrice: 5_390,
+    yearlyPrice: 45_696,
     cta: "Купить",
   },
   {
     id: "professional",
     name: "Профессиональный",
-    tagline: "Для максимальной автоматизации всех процессов в компании",
+    tagline: "Профессиональный для 100 сотрудников 90 048 (-30%)",
     theme: {
       header: "bg-[#8FD0F5]",
       headerText: "text-[#0f3d5c]",
@@ -113,7 +113,7 @@ const plans: Plan[] = [
     usersIcon: "popular",
     storage: "1 024 ГБ",
     monthlyPrice: 15_400,
-    yearlyPrice: 10_780,
+    yearlyPrice: 90_048,
     popular: true,
     cta: "Купить",
   },
