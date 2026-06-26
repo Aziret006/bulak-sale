@@ -38,8 +38,11 @@ type Plan = {
   users: string;
   usersIcon?: "popular";
   storage: string;
-  monthlyPrice: number;
-  originalMonthlyPrice?: number;
+  /** цена за год (делится на 12 для отображения в месяц) */
+  annualPrice?: number;
+  originalAnnualPrice?: number;
+  /** фиксированная месячная цена (Энтерпрайз) */
+  monthlyPrice?: number;
   popular?: boolean;
   cta: string;
   enterpriseTier?: boolean;
@@ -71,8 +74,8 @@ const plans: Plan[] = [
     },
     users: "5 пользователей",
     storage: "24 ГБ",
-    originalMonthlyPrice: 65_000,
-    monthlyPrice: 61_700,
+    originalAnnualPrice: 65_000,
+    annualPrice: 61_700,
     cta: "Купить",
   },
   {
@@ -90,8 +93,8 @@ const plans: Plan[] = [
     },
     users: "50 пользователей",
     storage: "100 ГБ",
-    originalMonthlyPrice: 104_900,
-    monthlyPrice: 99_600,
+    originalAnnualPrice: 104_900,
+    annualPrice: 99_600,
     cta: "Купить",
   },
   {
@@ -110,8 +113,8 @@ const plans: Plan[] = [
     users: "100 пользователей",
     usersIcon: "popular",
     storage: "1 024 ГБ",
-    originalMonthlyPrice: 154_900,
-    monthlyPrice: 147_100,
+    originalAnnualPrice: 154_900,
+    annualPrice: 147_100,
     popular: true,
     cta: "Купить",
   },
@@ -175,6 +178,10 @@ function formatSom(value: number) {
   return value.toLocaleString("ru-RU");
 }
 
+function monthlyFromAnnual(annualTotal: number) {
+  return Math.round(annualTotal / 12);
+}
+
 function FeatureToggle({ trackClass }: { trackClass: string }) {
   return (
     <span
@@ -198,7 +205,7 @@ function PriceBlock({
       <div className="h-5 flex items-center justify-center gap-2 mb-1">
         {originalPrice ? (
           <span className="text-sm text-[#3DB7F4]/70 font-bold line-through whitespace-nowrap">
-            {formatSom(originalPrice)} {CURRENCY}
+            {/* {formatSom(originalPrice)} {CURRENCY}/мес */}
           </span>
         ) : (
           <span className="invisible text-xs">—</span>
@@ -206,10 +213,12 @@ function PriceBlock({
       </div>
       <p className="text-[32px] font-bold text-gray-900 leading-none tracking-tight">
         {formatSom(price)}
+        <span className="text-base sm:text-lg font-semibold text-gray-600 ml-1.5">
+          {CURRENCY}/мес
+        </span>
       </p>
-      <p className="text-sm font-medium text-gray-600 mt-1">{CURRENCY}</p>
       <p className="text-[11px] text-gray-500 mt-2 text-center leading-snug px-1">
-        в месяц за всех пользователей
+        за всех пользователей в месяц
       </p>
     </div>
   );
@@ -229,8 +238,17 @@ function PlanTopSection({
   const tier = plan.enterpriseTier
     ? enterpriseTiers.find((t) => t.users === enterpriseUsers)
     : undefined;
-  const price = tier?.monthly ?? plan.monthlyPrice;
-  const originalPrice = tier ? undefined : plan.originalMonthlyPrice;
+
+  const price = tier
+    ? tier.monthly
+    : plan.annualPrice != null
+      ? monthlyFromAnnual(plan.annualPrice)
+      : (plan.monthlyPrice ?? 0);
+
+  const originalPrice =
+    tier || plan.originalAnnualPrice == null
+      ? undefined
+      : monthlyFromAnnual(plan.originalAnnualPrice);
   const storage = tier?.storage ?? plan.storage;
   const usersLabel = tier ? `${tier.users} пользователей` : plan.users;
   const isFirst = columnIndex === 0;
@@ -438,7 +456,7 @@ export function BitrixLicense() {
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3">Лицензии Bitrix24</h2>
           <p className="text-gray-600">Сравните тарифы и выберите подходящий план</p>
           <p className="text-sm text-[#3DB7F4] font-medium mt-2">
-            Цены за месяц · скидка действует только в мае
+            Цены за месяц (годовая лицензия ÷ 12) · скидка только в мае
           </p>
         </div>
 
@@ -498,7 +516,8 @@ export function BitrixLicense() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-8 max-w-md mx-auto">
-          Цены в сомах. Поможем подключить лицензию и настроить Bitrix24 — напишите в WhatsApp.
+          Все цены указаны за 1 месяц в сомах. Поможем подключить лицензию и настроить
+          Bitrix24 — напишите в WhatsApp.
         </p>
       </div>
     </section>
