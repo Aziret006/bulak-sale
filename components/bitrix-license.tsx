@@ -20,8 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type BillingPeriod = "month" | "year";
-
 type PlanTheme = {
   header: string;
   headerText: string;
@@ -41,7 +39,7 @@ type Plan = {
   usersIcon?: "popular";
   storage: string;
   monthlyPrice: number;
-  yearlyPrice: number;
+  originalMonthlyPrice?: number;
   popular?: boolean;
   cta: string;
   enterpriseTier?: boolean;
@@ -52,16 +50,16 @@ const CURRENCY = "сом";
 const WHATSAPP_URL = "https://wa.me/996222233002";
 
 const enterpriseTiers = [
-  { users: 250, storage: "3 ТБ", monthly: 37_400, yearly: 26_180 },
-  { users: 500, storage: "5 ТБ", monthly: 65_990, yearly: 46_190 },
-  { users: 1000, storage: "10 ТБ", monthly: 109_990, yearly: 76_990 },
+  { users: 250, storage: "3 ТБ", monthly: 37_400 },
+  { users: 500, storage: "5 ТБ", monthly: 65_990 },
+  { users: 1000, storage: "10 ТБ", monthly: 159_000 },
 ];
 
 const plans: Plan[] = [
   {
     id: "basic",
     name: "Базовый",
-    tagline: "Базовый  для 5 сотрудников 14 784 (-30%)",
+    tagline: "Базовый для 5 сотрудников",
     theme: {
       header: "bg-[#D4EDFC]",
       headerText: "text-[#1a4d6d]",
@@ -73,14 +71,14 @@ const plans: Plan[] = [
     },
     users: "5 пользователей",
     storage: "24 ГБ",
-    monthlyPrice: 2_750,
-    yearlyPrice: 14_784,
+    originalMonthlyPrice: 65_000,
+    monthlyPrice: 61_700,
     cta: "Купить",
   },
   {
     id: "standard",
     name: "Стандартный",
-    tagline: "Стандартный для 50 сотрудников 45 696 (-30%)",
+    tagline: "Стандартный для 50 сотрудников",
     theme: {
       header: "bg-[#B8E4FA]",
       headerText: "text-[#134d6e]",
@@ -92,14 +90,14 @@ const plans: Plan[] = [
     },
     users: "50 пользователей",
     storage: "100 ГБ",
-    monthlyPrice: 7_700,
-    yearlyPrice: 45_696,
+    originalMonthlyPrice: 104_900,
+    monthlyPrice: 99_600,
     cta: "Купить",
   },
   {
     id: "professional",
     name: "Профессиональный",
-    tagline: "Профессиональный для 100 сотрудников 90 048 (-30%)",
+    tagline: "Профессиональный для 100 сотрудников",
     theme: {
       header: "bg-[#8FD0F5]",
       headerText: "text-[#0f3d5c]",
@@ -112,8 +110,8 @@ const plans: Plan[] = [
     users: "100 пользователей",
     usersIcon: "popular",
     storage: "1 024 ГБ",
-    monthlyPrice: 15_400,
-    yearlyPrice: 90_048,
+    originalMonthlyPrice: 154_900,
+    monthlyPrice: 147_100,
     popular: true,
     cta: "Купить",
   },
@@ -132,7 +130,6 @@ const plans: Plan[] = [
     users: "250 пользователей",
     storage: "3 ТБ",
     monthlyPrice: 37_400,
-    yearlyPrice: 26_180,
     enterpriseTier: true,
     cta: "Купить",
     links: [
@@ -189,76 +186,26 @@ function FeatureToggle({ trackClass }: { trackClass: string }) {
   );
 }
 
-function BillingToggle({
-  billing,
-  onChange,
-}: {
-  billing: BillingPeriod;
-  onChange: (v: BillingPeriod) => void;
-}) {
-  return (
-    <div
-      className="inline-flex items-center p-1 rounded-full bg-white border border-gray-200 shadow-sm"
-      role="tablist"
-    >
-      <button
-        type="button"
-        role="tab"
-        aria-selected={billing === "month"}
-        onClick={() => onChange("month")}
-        className={cn(
-          "px-5 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all",
-          billing === "month" ? "bg-gray-100 text-gray-900" : "text-gray-500",
-        )}
-      >
-        Купить на месяц
-      </button>
-      <button
-        type="button"
-        role="tab"
-        aria-selected={billing === "year"}
-        onClick={() => onChange("year")}
-        className={cn(
-          "px-5 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all",
-          billing === "year" ? "bg-[#3DB7F4] text-white shadow-md" : "text-gray-500",
-        )}
-      >
-        Купить на год <span className="font-bold">−30%</span>
-      </button>
-    </div>
-  );
-}
-
 function PriceBlock({
-  monthly,
-  yearly,
-  billing,
+  price,
+  originalPrice,
 }: {
-  monthly: number;
-  yearly: number;
-  billing: BillingPeriod;
+  price: number;
+  originalPrice?: number;
 }) {
-  const isYearly = billing === "year";
-  const displayPrice = isYearly ? yearly : monthly;
-
   return (
     <div className="flex flex-col items-center justify-center min-h-[118px]">
       <div className="h-5 flex items-center justify-center gap-2 mb-1">
-        {isYearly ? (
-          <>
-            <span className="text-xs text-gray-400 line-through whitespace-nowrap">
-              {formatSom(monthly)} {CURRENCY}
-            </span>
-            <span className="text-[10px] font-bold text-white bg-[#FF8C42] rounded px-1.5 py-0.5 whitespace-nowrap">
-              −30%
-            </span>
-          </>
+        {originalPrice ? (
+          <span className="text-sm text-[#3DB7F4]/70 font-bold line-through whitespace-nowrap">
+            {formatSom(originalPrice)} {CURRENCY}
+          </span>
         ) : (
           <span className="invisible text-xs">—</span>
         )}
       </div>
       <p className="text-[32px] font-bold text-gray-900 leading-none tracking-tight">
-        {formatSom(displayPrice)}
+        {formatSom(price)}
       </p>
       <p className="text-sm font-medium text-gray-600 mt-1">{CURRENCY}</p>
       <p className="text-[11px] text-gray-500 mt-2 text-center leading-snug px-1">
@@ -270,21 +217,20 @@ function PriceBlock({
 
 function PlanTopSection({
   plan,
-  billing,
   enterpriseUsers,
   onEnterpriseUsersChange,
   columnIndex,
 }: {
   plan: Plan;
-  billing: BillingPeriod;
   enterpriseUsers: number;
   onEnterpriseUsersChange: (v: number) => void;
   columnIndex: number;
 }) {
-  const tier =
-    plan.enterpriseTier && enterpriseTiers.find((t) => t.users === enterpriseUsers);
-  const monthly = tier?.monthly ?? plan.monthlyPrice;
-  const yearly = tier?.yearly ?? plan.yearlyPrice;
+  const tier = plan.enterpriseTier
+    ? enterpriseTiers.find((t) => t.users === enterpriseUsers)
+    : undefined;
+  const price = tier?.monthly ?? plan.monthlyPrice;
+  const originalPrice = tier ? undefined : plan.originalMonthlyPrice;
   const storage = tier?.storage ?? plan.storage;
   const usersLabel = tier ? `${tier.users} пользователей` : plan.users;
   const isFirst = columnIndex === 0;
@@ -365,7 +311,7 @@ function PlanTopSection({
 
       {/* Цена — одинаковая высота во всех колонках */}
       <div className={cn("px-3 pt-2 pb-3", plan.theme.surface, plan.popular && "ring-2 ring-inset ring-[#3DB7F4]")}>
-        <PriceBlock monthly={monthly} yearly={yearly} billing={billing} />
+        <PriceBlock price={price} originalPrice={originalPrice} />
         <Button
           asChild
           className={cn(
@@ -464,7 +410,6 @@ function MobileFeaturesList({ plan, planIndex }: { plan: Plan; planIndex: number
 }
 
 export function BitrixLicense() {
-  const [billing, setBilling] = useState<BillingPeriod>("year");
   const [enterpriseUsers, setEnterpriseUsers] = useState(250);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [activeSlide, setActiveSlide] = useState(0);
@@ -492,10 +437,9 @@ export function BitrixLicense() {
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="text-3xl sm:text-4xl font-bold text-black mb-3">Лицензии Bitrix24</h2>
           <p className="text-gray-600">Сравните тарифы и выберите подходящий план</p>
-        </div>
-
-        <div className="flex justify-center mb-8 sm:mb-10">
-          <BillingToggle billing={billing} onChange={setBilling} />
+          <p className="text-sm text-[#3DB7F4] font-medium mt-2">
+            Цены за месяц · скидка действует только в мае
+          </p>
         </div>
 
         {/* Десктоп */}
@@ -505,7 +449,6 @@ export function BitrixLicense() {
               <PlanTopSection
                 key={plan.id}
                 plan={plan}
-                billing={billing}
                 enterpriseUsers={enterpriseUsers}
                 onEnterpriseUsersChange={setEnterpriseUsers}
                 columnIndex={i}
@@ -524,7 +467,6 @@ export function BitrixLicense() {
                   <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
                     <PlanTopSection
                       plan={plan}
-                      billing={billing}
                       enterpriseUsers={enterpriseUsers}
                       onEnterpriseUsersChange={setEnterpriseUsers}
                       columnIndex={i}

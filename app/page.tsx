@@ -16,7 +16,7 @@ export default function HomePage() {
       <Hero />
       <Service />
       <Quiz />
-      <Services />
+      {/* <Services /> */}
       <BitrixLicense />
       <WhyUs />
       <Process />
